@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_carbon_track_alcance" model="ir.actions.act_window">
+        <field name="name">Alcances</field>
+        <field name="res_model">carbon.track.alcance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_carbon_track_periodo" model="ir.actions.act_window">
+        <field name="name">Periodos</field>
+        <field name="res_model">carbon.track.periodo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_carbon_track_emision" model="ir.actions.act_window">
+        <field name="name">Factores de Emisión</field>
+        <field name="res_model">carbon.track.emision</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_carbon_track_actividad" model="ir.actions.act_window">
+        <field name="name">Actividades</field>
+        <field name="res_model">carbon.track.actividad</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_carbon_track_root" 
+              name="Carbon Track" 
+              web_icon="base,static/description/icon.png"/>
+
+    <menuitem id="menu_carbon_track_operations" 
+              name="Operaciones" 
+              parent="menu_carbon_track_root" 
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_actividad" 
+              name="Actividades" 
+              parent="menu_carbon_track_operations" 
+              action="action_carbon_track_actividad" 
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_config" 
+              name="Configuración" 
+              parent="menu_carbon_track_root" 
+              sequence="100"/>
+
+    <menuitem id="menu_carbon_track_alcance_config" 
+              name="Alcances" 
+              parent="menu_carbon_track_config" 
+              action="action_carbon_track_alcance" 
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_periodo_config" 
+              name="Periodos" 
+              parent="menu_carbon_track_config" 
+              action="action_carbon_track_periodo" 
+              sequence="20"/>
+
+    <menuitem id="menu_carbon_track_emision_config" 
+              name="Factores de Emisión" 
+              parent="menu_carbon_track_config" 
+              action="action_carbon_track_emision" 
+              sequence="30"/>
+</odoo>
