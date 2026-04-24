@@ -23,6 +23,17 @@
         <field name="res_model">carbon.track.actividad</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <record id="action_carbon_track_registro" model="ir.actions.act_window">
+        <field name="name">Registros de Consumo</field>
+        <field name="res_model">carbon.track.registro</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_carbon_track_registro" 
+          name="Registros de Consumo" 
+          parent="menu_carbon_track_operations" 
+          action="action_carbon_track_registro" 
+          sequence="20"/>
 
     <menuitem id="menu_carbon_track_root" 
               name="Carbon Track" 
