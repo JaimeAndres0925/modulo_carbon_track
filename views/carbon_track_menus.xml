@@ -28,6 +28,18 @@
         <field name="res_model">carbon.track.registro</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <record id= "action_carbon_track_reporte" model="ir.action.act_window">
+        <field name="name">Informes de Emisiones</field>
+        <field name="res_model">carbon.track.reporte</field>
+        <field name="view_mode">tree, form</field>
+    </record>
+    <record id="action_carbon_track_fuente_externa" model="ir.actions.act_window">
+        <field name="name">Fuentes Externas API</field>
+        <field name="res_model">carbon.track.fuente.externa</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
 
 
     <record id="view_carbon_track_registro_tree" model="ir.ui.view">
@@ -60,10 +72,22 @@
               parent="menu_carbon_track_root" 
               sequence="10"/>
 
+    <menuitem id="menu_carbon_track_registro" 
+              name="Registros de Consumo" 
+              parent="menu_carbon_track_operations" 
+              action="action_carbon_track_registro" 
+              sequence="10"/>
+
     <menuitem id="menu_carbon_track_actividad" 
               name="Actividades" 
               parent="menu_carbon_track_operations" 
               action="action_carbon_track_actividad" 
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_reporte_list" 
+              name="Resumen de Emisiones" 
+              parent="menu_carbon_track_reports" 
+              action="action_carbon_track_reporte" 
               sequence="10"/>
 
     <menuitem id="menu_carbon_track_config" 
@@ -88,4 +112,10 @@
               parent="menu_carbon_track_config" 
               action="action_carbon_track_emision" 
               sequence="30"/>
+
+    <menuitem id="menu_carbon_track_fuente_externa_config" 
+              name="Fuentes Externas (API)" 
+              parent="menu_carbon_track_config" 
+              action="action_carbon_track_fuente_externa" 
+              sequence="40"/>
 </odoo>
