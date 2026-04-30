@@ -1,0 +1,23 @@
+from odoo import models, fields, api
+
+class CarbonTrackReporte(models.Model):
+    _name = 'carbon.track.reporte'
+    _description = 'Informes agregados por periodo' [cite: 49, 50]
+    
+    periodo_id = fields.Many2one('carbon.track.periodo', string='Periodo', required=True) [cite:51]
+    fecha_de_generacion = fields.Datetime(string='Fecha de Generación', default=fields.Datetime.now) [cite: 55]
+    
+    total_alcance1 = fields.Float(string='Total Alcance 1', compute = '_compute_totales', store=True) [cite: 52]
+    total_alcance2 = fields.Float(string='Total Alcance 2', compute = '_compute_totales', store=True) [cite: 53]
+    total_alcance2 = fields.Float(string='Total Alcance 3', compute = '_compute_totales', store=True) [cite: 54]
+
+    @api.depends('periodo_id')
+    def _compute_totales(self):
+        """
+        Suma los cáculos realizados en el periodo seleccionado por cada alcance[cite:82, 83]
+        """
+        for report in self:
+            registros = self.env['carbon.track.registro'].search([('periodo_id', '=', report.periodo_id.id)])
+            report.total_alcance1 = sum(r.valor_co2e for r in registros if r.actividad_id.alcance_id.name == 'Alcance 1')
+            report.total_alcance2 = sum(r.valor_co2e for r in registros if r.actividad_id.alcance_id.name == 'Alcance 2')
+            report.total_alcance3 = sum(r.valor_co2e for r in registros if r.actividad_id.alcance_id.name == 'Alcance 3')        

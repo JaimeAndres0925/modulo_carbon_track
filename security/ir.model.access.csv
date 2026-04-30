@@ -4,3 +4,4 @@ access_carbon_track_periodo,carbon.track.periodo,model_carbon_track_periodo,base
 access_carbon_track_emision,carbon.track.emision,model_carbon_track_emision,base.group_user,1,1,1,1
 access_carbon_track_actividad,carbon.track.actividad,model_carbon_track_actividad,base.group_user,1,1,1,1
 access_carbon_track_registro,carbon.track.registro,model_carbon_track_registro,base.group_user,1,1,1,1
+access_carbon_track_reporte,carbon.track.reporte,model-carbon_track_reporte,base.group.user,1,1,1,1

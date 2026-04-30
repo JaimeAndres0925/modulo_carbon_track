@@ -29,6 +29,22 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+
+    <record id="view_carbon_track_registro_tree" model="ir.ui.view">
+        <field name="name">carbon.track.registro.tree</field>
+        <field name="model">carbon.track.registro</field>
+        <field name="arch" type="xml">
+            <tree string="Registros de Consumo" decoration-info="valor_co2e > 0">
+                <field name="fecha"/>
+                <field name="actividad_id"/>
+                <field name="periodo_id"/>
+                <field name="cantidad"/>
+                <field name="unidad"/>
+                <field name="valor_co2e" sum="Total CO2e Generado"/>
+            </tree>
+        </field>
+    </record>
+
     <menuitem id="menu_carbon_track_registro" 
           name="Registros de Consumo" 
           parent="menu_carbon_track_operations" 
