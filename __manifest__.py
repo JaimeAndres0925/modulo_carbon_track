@@ -8,6 +8,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/carbon_track_menus.xml',
+        'report/carbon_track_report_template.xml',
+        'report/carbon_track_report_action.xml',
     ],
     'installable': True,
     'application': True,

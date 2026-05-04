@@ -3,65 +3,59 @@
     <record id="action_carbon_track_alcance" model="ir.actions.act_window">
         <field name="name">Alcances</field>
         <field name="res_model">carbon.track.alcance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_carbon_track_periodo" model="ir.actions.act_window">
         <field name="name">Periodos</field>
         <field name="res_model">carbon.track.periodo</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_carbon_track_emision" model="ir.actions.act_window">
         <field name="name">Factores de Emisión</field>
         <field name="res_model">carbon.track.emision</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_carbon_track_actividad" model="ir.actions.act_window">
         <field name="name">Actividades</field>
         <field name="res_model">carbon.track.actividad</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
+
     <record id="action_carbon_track_registro" model="ir.actions.act_window">
         <field name="name">Registros de Consumo</field>
         <field name="res_model">carbon.track.registro</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
-    <record id= "action_carbon_track_reporte" model="ir.action.act_window">
+
+    <record id="action_carbon_track_reporte" model="ir.actions.act_window">
         <field name="name">Informes de Emisiones</field>
         <field name="res_model">carbon.track.reporte</field>
-        <field name="view_mode">tree, form</field>
+        <field name="view_mode">list,form</field> 
     </record>
+
     <record id="action_carbon_track_fuente_externa" model="ir.actions.act_window">
         <field name="name">Fuentes Externas API</field>
         <field name="res_model">carbon.track.fuente.externa</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
-
-
-
-    <record id="view_carbon_track_registro_tree" model="ir.ui.view">
-        <field name="name">carbon.track.registro.tree</field>
+    <record id="view_carbon_track_registro_list" model="ir.ui.view">
+        <field name="name">carbon.track.registro.list</field>
         <field name="model">carbon.track.registro</field>
         <field name="arch" type="xml">
-            <tree string="Registros de Consumo" decoration-info="valor_co2e > 0">
+            <list string="Registros de Consumo" decoration-info="valor_co2e > 0">
                 <field name="fecha"/>
                 <field name="actividad_id"/>
                 <field name="periodo_id"/>
                 <field name="cantidad"/>
                 <field name="unidad"/>
                 <field name="valor_co2e" sum="Total CO2e Generado"/>
-            </tree>
+            </list>
         </field>
     </record>
-
-    <menuitem id="menu_carbon_track_registro" 
-          name="Registros de Consumo" 
-          parent="menu_carbon_track_operations" 
-          action="action_carbon_track_registro" 
-          sequence="20"/>
 
     <menuitem id="menu_carbon_track_root" 
               name="Carbon Track" 
@@ -71,6 +65,16 @@
               name="Operaciones" 
               parent="menu_carbon_track_root" 
               sequence="10"/>
+
+    <menuitem id="menu_carbon_track_reports" 
+              name="Informes" 
+              parent="menu_carbon_track_root" 
+              sequence="20"/>
+
+    <menuitem id="menu_carbon_track_config" 
+              name="Configuración" 
+              parent="menu_carbon_track_root" 
+              sequence="100"/>
 
     <menuitem id="menu_carbon_track_registro" 
               name="Registros de Consumo" 
@@ -82,18 +86,13 @@
               name="Actividades" 
               parent="menu_carbon_track_operations" 
               action="action_carbon_track_actividad" 
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="menu_carbon_track_reporte_list" 
               name="Resumen de Emisiones" 
               parent="menu_carbon_track_reports" 
               action="action_carbon_track_reporte" 
               sequence="10"/>
-
-    <menuitem id="menu_carbon_track_config" 
-              name="Configuración" 
-              parent="menu_carbon_track_root" 
-              sequence="100"/>
 
     <menuitem id="menu_carbon_track_alcance_config" 
               name="Alcances" 

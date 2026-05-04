@@ -2,14 +2,14 @@ from odoo import models, fields, api
 
 class CarbonTrackReporte(models.Model):
     _name = 'carbon.track.reporte'
-    _description = 'Informes agregados por periodo' [cite: 49, 50]
+    _description = 'Informes agregados por periodo' 
     
-    periodo_id = fields.Many2one('carbon.track.periodo', string='Periodo', required=True) [cite:51]
-    fecha_de_generacion = fields.Datetime(string='Fecha de Generación', default=fields.Datetime.now) [cite: 55]
+    periodo_id = fields.Many2one('carbon.track.periodo', string='Periodo', required=True) 
+    fecha_de_generacion = fields.Datetime(string='Fecha de Generación', default=fields.Datetime.now) 
     
-    total_alcance1 = fields.Float(string='Total Alcance 1', compute = '_compute_totales', store=True) [cite: 52]
-    total_alcance2 = fields.Float(string='Total Alcance 2', compute = '_compute_totales', store=True) [cite: 53]
-    total_alcance2 = fields.Float(string='Total Alcance 3', compute = '_compute_totales', store=True) [cite: 54]
+    total_alcance1 = fields.Float(string='Total Alcance 1', compute = '_compute_totales', store=True) 
+    total_alcance2 = fields.Float(string='Total Alcance 2', compute = '_compute_totales', store=True) 
+    total_alcance3 = fields.Float(string='Total Alcance 3', compute = '_compute_totales', store=True) 
 
     @api.depends('periodo_id')
     def _compute_totales(self):

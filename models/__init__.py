@@ -4,3 +4,4 @@ from . import emision
 from . import actividad
 from . import registro
 from . import reporte
+from . import fuente_externa  
