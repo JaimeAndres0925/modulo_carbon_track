@@ -57,6 +57,22 @@
         </field>
     </record>
 
+    <record id="view_carbon_track_registro_graph" model="ir.ui.view">
+        <field name="name">carbon.track.registro.graph</field>
+        <field name="model">carbon.track.registro</field>
+        <field name="arch" type="xml">
+            <graph string="Análisis de Emisiones" type="bar" sample="1">
+                <field name="actividad_id" type="row"/>
+                <field name="valor_co2e" type="measure"/>
+            </graph>
+        </field>
+</record>
+
+<record id="action_carbon_track_registro" model="ir.actions.act_window">
+    <field name="name">Registros de Consumo</field>
+    <field name="res_model">carbon.track.registro</field>
+    <field name="view_mode">list,form,graph,pivot</field> </record>
+
     <menuitem id="menu_carbon_track_root" 
               name="Carbon Track" 
               web_icon="base,static/description/icon.png"/>
