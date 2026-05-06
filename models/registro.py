@@ -5,6 +5,8 @@ class CarbonTrackRegistro(models.Model):
     _description = 'Registros de consumo (Datos de entrada)'
     _order = 'fecha desc'
     
+    name = fields.Char(string='Referencia', required=True, default='Nuevo')
+    
     #Relaciones del modelo de datos
     periodo_id = fields.Many2one('carbon.track.periodo', string= 'Periodo', required=True) 
     actividad_id = fields.Many2one('carbon.track.actividad', string='Actividad', required=True) 

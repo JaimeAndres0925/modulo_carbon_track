@@ -11,8 +11,14 @@
         'views/hr_expense_views.xml',
         'report/carbon_track_report_template.xml',
         'report/carbon_track_report_action.xml',
-        
     ],
+    
+    'assets': {
+        'web.assets_backend': [
+            'modulo_carbon_track/static/src/scss/colors.scss',
+        ],
+    },
+    
     'installable': True,
     'application': True,
 }

@@ -1,0 +1,30 @@
+/* Colores corporativos de Carbon Track */
+$carbon-navy: #0a1128 !important;
+$carbon-neon: #52ffb8 !important;
+$carbon-cyan: #00f0ff !important;
+
+/* Cambiar la barra superior (Navbar) */
+.o_main_navbar {
+    background-color: $carbon-navy;
+    border-bottom: 2px solid $carbon-neon;
+}
+
+/* Cambiar el color de los botones principales (Ej: Guardar, Crear, Importar) */
+.btn-primary {
+    background-color: $carbon-neon;
+    color: $carbon-navy;
+    border-color: $carbon-cyan;
+    font-weight: bold;
+}
+
+/* Efecto al pasar el ratón por los botones */
+.btn-primary:hover {
+    background-color: $carbon-cyan;
+    color: $carbon-navy;
+    border-color: $carbon-neon;
+}
+
+/* Color del texto destacado y enlaces */
+.text-primary, a {
+    color: #17a2b8; /* Un cian un poco más oscuro para que se lea bien en fondo blanco */
+}

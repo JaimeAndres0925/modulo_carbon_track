@@ -24,12 +24,6 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <record id="action_carbon_track_registro" model="ir.actions.act_window">
-        <field name="name">Registros de Consumo</field>
-        <field name="res_model">carbon.track.registro</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
     <record id="action_carbon_track_reporte" model="ir.actions.act_window">
         <field name="name">Informes de Emisiones</field>
         <field name="res_model">carbon.track.reporte</field>
@@ -42,11 +36,17 @@
         <field name="view_mode">list,form</field>
     </record>
 
+    <record id="action_carbon_track_registro" model="ir.actions.act_window">
+        <field name="name">Registros de Consumo</field>
+        <field name="res_model">carbon.track.registro</field>
+        <field name="view_mode">list,form,graph</field> 
+    </record>
+
     <record id="view_carbon_track_registro_list" model="ir.ui.view">
         <field name="name">carbon.track.registro.list</field>
         <field name="model">carbon.track.registro</field>
         <field name="arch" type="xml">
-            <list string="Registros de Consumo" decoration-info="valor_co2e > 0">
+            <list string="Registros de Consumo" decoration-info="valor_co2e &gt; 0">
                 <field name="fecha"/>
                 <field name="actividad_id"/>
                 <field name="periodo_id"/>
@@ -62,20 +62,15 @@
         <field name="model">carbon.track.registro</field>
         <field name="arch" type="xml">
             <graph string="Análisis de Emisiones" type="bar" sample="1">
-                <field name="actividad_id" type="row"/>
+                <field name="actividad_id"/> 
                 <field name="valor_co2e" type="measure"/>
             </graph>
         </field>
-</record>
-
-<record id="action_carbon_track_registro" model="ir.actions.act_window">
-    <field name="name">Registros de Consumo</field>
-    <field name="res_model">carbon.track.registro</field>
-    <field name="view_mode">list,form,graph,pivot</field> </record>
+    </record>
 
     <menuitem id="menu_carbon_track_root" 
               name="Carbon Track" 
-              web_icon="base,static/description/icon.png"/>
+              web_icon="modulo_carbon_track,static/description/icon.png"/>
 
     <menuitem id="menu_carbon_track_operations" 
               name="Operaciones" 

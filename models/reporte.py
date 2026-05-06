@@ -5,7 +5,8 @@ class CarbonTrackReporte(models.Model):
     _description = 'Informes agregados por periodo' 
     
     periodo_id = fields.Many2one('carbon.track.periodo', string='Periodo', required=True) 
-    fecha_de_generacion = fields.Datetime(string='Fecha de Generación', default=fields.Datetime.now) 
+    fecha_de_generacion = fields.Datetime(string='Fecha de Generación', default=fields.Datetime.now)
+    name = fields.Char(string='Nombre del Informe', related='periodo_id.name', store=True, readonly=True) 
     
     total_alcance1 = fields.Float(string='Total Alcance 1', compute = '_compute_totales', store=True) 
     total_alcance2 = fields.Float(string='Total Alcance 2', compute = '_compute_totales', store=True) 
