@@ -6,3 +6,4 @@ access_carbon_track_actividad,carbon.track.actividad,model_carbon_track_activida
 access_carbon_track_registro,carbon.track.registro,model_carbon_track_registro,base.group_user,1,1,1,1
 access_carbon_track_reporte,carbon.track.reporte,model_carbon_track_reporte,base.group_user,1,1,1,1
 access_carbon_track_fuente_externa,carbon.track.fuente.externa,model_carbon_track_fuente_externa,base.group_user,1,1,1,1
+access_carbon_track_compensacion,access_carbon_track_compensacion,model_carbon_track_compensacion,base.group_user,1,1,1,1

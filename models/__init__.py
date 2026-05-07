@@ -6,3 +6,4 @@ from . import registro
 from . import reporte
 from . import fuente_externa  
 from . import hr_expense_inheritance
+from . import compensacion

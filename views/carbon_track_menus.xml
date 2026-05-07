@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Plantilla de Correo Automática -->
+    <record id="email_template_periodo" model="mail.template">
+        <field name="name">Envío de Informe de Sostenibilidad</field>
+        <field name="model_id" ref="modulo_carbon_track.model_carbon_track_periodo"/>
+        <field name="subject">Informe de Huella de Carbono: {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hola,<br/><br/>
+                    A continuación, se detalla el resumen del <strong>Informe de Huella de Carbono</strong> correspondiente al periodo <strong><t t-out="object.name"/></strong>.
+                    <br/><br/>
+                    <strong>Resumen del Periodo:</strong>
+                    <ul>
+                        <li>Presupuesto Máximo: <t t-out="object.presupuesto_co2e"/> kg</li>
+                        <li>Total Consumido: <t t-out="object.total_co2e_consumido"/> kg</li>
+                        <li>Total Compensado: <t t-out="object.total_co2e_compensado"/> kg</li>
+                        <li>Huella Neta Final: <strong><t t-out="object.huella_neta"/> kg</strong></li>
+                    </ul>
+                    <br/>
+                    <t t-if="object.es_net_zero">
+                        <span style="color: #28a745; font-weight: bold; font-size: 15px;">
+                            Hemos alcanzado el objetivo Net Zero en este periodo.
+                        </span><br/><br/>
+                    </t>
+                    Gracias,<br/>
+                    Departamento de Sostenibilidad
+                </p>
+            </div>
+        </field>
+    </record>
     <record id="action_carbon_track_alcance" model="ir.actions.act_window">
         <field name="name">Alcances</field>
         <field name="res_model">carbon.track.alcance</field>
@@ -42,6 +72,12 @@
         <field name="view_mode">list,form,graph</field> 
     </record>
 
+    <record id="action_carbon_track_compensacion" model="ir.actions.act_window">
+        <field name="name">Compensaciones</field>
+        <field name="res_model">carbon.track.compensacion</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
     <record id="view_carbon_track_registro_list" model="ir.ui.view">
         <field name="name">carbon.track.registro.list</field>
         <field name="model">carbon.track.registro</field>
@@ -53,7 +89,6 @@
                 <field name="cantidad"/>
                 <field name="unidad"/>
                 <field name="valor_co2e" sum="Total CO2e Generado"/>
-
                 <field name="nivel_impacto" 
                        widget="badge" 
                        decoration-success="nivel_impacto == 'bajo'" 
@@ -123,15 +158,42 @@
         <field name="model">carbon.track.periodo</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_send_email" 
+                            string="Enviar Informe por Email" 
+                            type="object" 
+                            class="oe_highlight" 
+                            icon="fa-envelope"/>
+                </header>
                 <sheet>
+                    <widget name="web_ribbon" title="¡NET ZERO!" bg_color="text-bg-success" invisible="not es_net_zero"/>
                     <div class="oe_title">
                         <h1><field name="name" placeholder="Ej. Mayo 2026"/></h1>
                     </div>
-                    <group string="Control de Presupuesto de Carbono">
-                        <field name="presupuesto_co2e"/>
-                        <field name="total_co2e_consumido"/>
-                        <field name="porcentaje_consumido" widget="progressbar"/>
+                    <group>
+                        <group string="Balance Ecológico">
+                            <field name="total_co2e_consumido" decoration-danger="1"/>
+                            <field name="total_co2e_compensado" decoration-success="1"/>
+                            <field name="huella_neta" class="fw-bold fs-5"/>
+                        </group>
+                        <group string="Control de Presupuesto">
+                            <field name="presupuesto_co2e"/>
+                            <field name="porcentaje_consumido" widget="progressbar"/>
+                            <field name="es_net_zero" invisible="1"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Proyectos de Compensación">
+                            <field name="compensacion_ids">
+                                <list editable="bottom">
+                                    <field name="fecha"/>
+                                    <field name="name"/>
+                                    <field name="tipo"/>
+                                    <field name="co2e_compensado" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -167,6 +229,12 @@
               parent="menu_carbon_track_operations" 
               action="action_carbon_track_actividad" 
               sequence="20"/>
+
+    <menuitem id="menu_carbon_track_compensacion" 
+              name="Compensaciones" 
+              parent="menu_carbon_track_operations" 
+              action="action_carbon_track_compensacion" 
+              sequence="30"/>
 
     <menuitem id="menu_carbon_track_reporte_list" 
               name="Resumen de Emisiones" 
