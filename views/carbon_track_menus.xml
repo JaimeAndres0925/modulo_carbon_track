@@ -53,6 +53,12 @@
                 <field name="cantidad"/>
                 <field name="unidad"/>
                 <field name="valor_co2e" sum="Total CO2e Generado"/>
+
+                <field name="nivel_impacto" 
+                       widget="badge" 
+                       decoration-success="nivel_impacto == 'bajo'" 
+                       decoration-warning="nivel_impacto == 'medio'" 
+                       decoration-danger="nivel_impacto == 'alto'"/>
             </list>
         </field>
     </record>
@@ -65,6 +71,69 @@
                 <field name="actividad_id"/> 
                 <field name="valor_co2e" type="measure"/>
             </graph>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_actividad_form" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.form</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_registros" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-leaf">
+                            <div class="o_stat_info">
+                                <field name="registro_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Registros</span>
+                                <span class="o_stat_text">
+                                    <field name="total_co2e_acumulado" widget="float"/> kg
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="alcance_id"/>
+                        <field name="factor_emision_id"/>
+                        <field name="unidad"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_periodo_list" model="ir.ui.view">
+        <field name="name">carbon.track.periodo.list</field>
+        <field name="model">carbon.track.periodo</field>
+        <field name="arch" type="xml">
+            <list string="Periodos">
+                <field name="name"/>
+                <field name="presupuesto_co2e"/>
+                <field name="total_co2e_consumido"/>
+                <field name="porcentaje_consumido" widget="progressbar"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_periodo_form" model="ir.ui.view">
+        <field name="name">carbon.track.periodo.form</field>
+        <field name="model">carbon.track.periodo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Ej. Mayo 2026"/></h1>
+                    </div>
+                    <group string="Control de Presupuesto de Carbono">
+                        <field name="presupuesto_co2e"/>
+                        <field name="total_co2e_consumido"/>
+                        <field name="porcentaje_consumido" widget="progressbar"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 

@@ -5,10 +5,52 @@
         <field name="model">hr.expense</field>
         <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_id']" position="after">
-                <field name="es_gasto_contaminante"/>
-                <field name="carbon_actividad_id" invisible="not es_gasto_contaminante"/>
+            
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="es_gasto_contaminante" invisible="1"/>
+                <field name="currency_id" invisible="1"/> <div class="alert alert-warning" role="alert" invisible="not es_gasto_contaminante">
+                    <i class="fa fa-leaf"/> <strong>Impacto Ambiental Estimado:</strong> 
+                    Este gasto generará <field name="co2e_estimado" readonly="1" class="fw-bold"/> kg de CO2e. 
+                    El coste ambiental interno asumido es de <field name="coste_ambiental" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}" class="fw-bold"/>.
+                </div>
             </xpath>
+
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="es_gasto_contaminante" string="¿Genera Huella de Carbono?"/>
+                <field name="actividad_id" 
+                       placeholder="Selecciona actividad ambiental..."
+                       invisible="not es_gasto_contaminante" 
+                       required="es_gasto_contaminante"
+                       options="{'no_create': True}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_hr_expense_sheet_form_inherit_carbon" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.form.inherit.carbon</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//header" position="inside">
+                <button name="action_eco_approve" 
+                        string="Aprobación Excepcional (Eco)" 
+                        type="object" 
+                        class="btn-danger" 
+                        invisible="not requiere_eco_aprobacion or state != 'submit'"/>
+            </xpath>
+
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="requiere_eco_aprobacion" invisible="1"/>
+                
+                <div class="alert alert-danger" role="alert" invisible="not requiere_eco_aprobacion">
+                    <i class="fa fa-exclamation-triangle"/> <strong>¡Atención! Política de Sostenibilidad:</strong> 
+                    Este informe de gastos contiene partidas que superan los 150 kg de CO2e. 
+                    Requiere justificación y aprobación excepcional por parte de Sostenibilidad.
+                </div>
+            </xpath>
+
         </field>
     </record>
 </odoo>

@@ -25,6 +25,25 @@ class CarbonTrackRegistro(models.Model):
         for record in self:
             factor = record.actividad_id.factor_emision_id.valor or 0.0
             record.valor_co2e = record.cantidad * factor
+            
+    # 1. Creamos el campo de selección para el impacto
+    nivel_impacto = fields.Selection([
+        ('bajo', 'Bajo'),
+        ('medio', 'Medio'),
+        ('alto', 'Alto')
+    ], string='Impacto', compute='_compute_nivel_impacto', store=True)
+
+    # 2. Creamos la función que decide el color según la cantidad
+    @api.depends('valor_co2e')
+    def _compute_nivel_impacto(self):
+        for record in self:
+            # Puedes ajustar estos números según lo que consideres "mucho" o "poco" en tu TFG
+            if record.valor_co2e < 100.0:
+                record.nivel_impacto = 'bajo'
+            elif record.valor_co2e <= 500.0:
+                record.nivel_impacto = 'medio'
+            else:
+                record.nivel_impacto = 'alto'
 
     
     
