@@ -199,6 +199,38 @@
         </field>
     </record>
 
+    <record id="view_carbon_track_fuente_externa_form" model="ir.ui.view">
+        <field name="name">carbon.track.fuente.externa.form</field>
+        <field name="model">carbon.track.fuente.externa</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_connection" string="1. Probar Conexión" type="object" class="oe_highlight"/>
+                    <button name="action_sync_factors" string="2. Sincronizar Catálogo" type="object" class="btn-success" invisible="estado != 'conectado'"/>
+                    <field name="estado" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="CONECTADO" bg_color="text-bg-success" invisible="estado != 'conectado'"/>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Credenciales">
+                            <field name="api_key" password="True" placeholder="Pega aquí tu token de Climatiq..."/>
+                            <field name="base_url"/>
+                        </group>
+                        <group string="Información de Sincronización">
+                            <field name="ultima_sincronizacion"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert" style="margin-top: 20px;">
+                        <i class="fa fa-info-circle"></i> <strong>Información de Auditoría:</strong> Al sincronizar, Odoo descargará los factores de emisión actualizados del GHG Protocol y de la EPA. Estos factores se bloquearán para evitar manipulaciones manuales por parte de los usuarios.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <menuitem id="menu_carbon_track_root" 
               name="Carbon Track" 
               web_icon="modulo_carbon_track,static/description/icon.png"/>
