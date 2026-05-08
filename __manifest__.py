@@ -6,6 +6,7 @@
     'author': 'Jaime Andrés Venegas Cárdenas', 
     'depends': ['base', 'mail', 'hr_expense'], # Asegúrate de poner el nombre de tu carpeta
     'data': [
+        'security/carbon_track_security.xml',
         'security/ir.model.access.csv',
         'views/carbon_track_menus.xml',
         'views/hr_expense_views.xml',

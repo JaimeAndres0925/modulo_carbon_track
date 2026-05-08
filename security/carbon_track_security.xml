@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_category_carbon_track">
+            <field name="name">Sostenibilidad (Carbon Track)</field>
+            <field name="description">Niveles de acceso para la huella de carbono.</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <record id="group_carbon_track_user" model="res.groups">
+            <field name="name">Usuario (Solo Registro)</field>
+            <field name="category_id" ref="module_category_carbon_track"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_carbon_track_manager" model="res.groups">
+            <field name="name">Gestor (Configuración Total)</field>
+            <field name="category_id" ref="module_category_carbon_track"/>
+            <field name="implied_ids" eval="[(4, ref('group_carbon_track_user'))]"/>
+        </record>
+    </data>
+</odoo>

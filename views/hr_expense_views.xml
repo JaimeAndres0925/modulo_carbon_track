@@ -37,7 +37,8 @@
                 <button name="action_eco_approve" 
                         string="Aprobación Excepcional (Eco)" 
                         type="object" 
-                        class="btn-danger" 
+                        class="btn-danger"
+                        groups="modulo_carbon_track.group_carbon_track_manager" 
                         invisible="not requiere_eco_aprobacion or state != 'submit'"/>
             </xpath>
 
