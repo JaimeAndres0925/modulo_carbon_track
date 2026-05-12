@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="alcance_1_default" model="carbon.track.alcance">
+            <field name="name">Alcance 1</field>
+            <field name="descripcion">Emisiones Directas de Gases de Efecto Invernadero (GEI) controladas por la empresa.</field>
+        </record>
+
+        <record id="alcance_2_default" model="carbon.track.alcance">
+            <field name="name">Alcance 2</field>
+            <field name="descripcion">Emisiones Indirectas asociadas a la generación de electricidad o energía térmica adquirida.</field>
+        </record>
+
+        <record id="alcance_3_default" model="carbon.track.alcance">
+            <field name="name">Alcance 3</field>
+            <field name="descripcion">Otras Emisiones Indirectas que ocurren en la cadena de valor (viajes, proveedores, residuos).</field>
+        </record>
+
+    </data>
+</odoo>

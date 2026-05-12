@@ -1,16 +1,16 @@
 from odoo import models, fields, api
-from odoo.exceptions import UserError # ¡Importante añadir esta línea arriba del todo!
+from odoo.exceptions import UserError 
 
 class HrExpense(models.Model):
     _inherit = 'hr.expense'
 
-    # Tus campos perfectamente definidos (sin duplicados)
     es_gasto_contaminante = fields.Boolean(string='¿Genera Huella de Carbono?', default=False)
     actividad_id = fields.Many2one('carbon.track.actividad', string='Actividad Contaminante')
     
-    # 2. Nuevos campos para la monetización y cálculo del carbono al vuelo
+    # Campos para la monetización y cálculo del carbono al vuelo
     co2e_estimado = fields.Float(string='CO2e Estimado (kg)', compute='_compute_coste_ambiental', store=True)
     coste_ambiental = fields.Float(string='Coste Ambiental', compute='_compute_coste_ambiental', store=True)
+    periodo_id = fields.Many2one('carbon.track.periodo', string='Periodo de Cálculo')
     
     @api.depends('quantity', 'actividad_id', 'es_gasto_contaminante')
     def _compute_coste_ambiental(self):
@@ -50,12 +50,11 @@ class HrExpenseSheet(models.Model):
 
     # El nuevo botón que usará el Gestor de Sostenibilidad
     def action_eco_approve(self):
-        # Le pasamos un "contexto" secreto a la función original para que sepa que tiene permiso
+        # Le pasamos contexto a la función original para que sepa que tiene permiso
         return self.with_context(aprobacion_excepcional=True).action_approve_expense_sheets()
 
     # Sobreescribimos la aprobación original
     def action_approve_expense_sheets(self):
-        # 1. BLOQUEO DE SEGURIDAD: 
         # Si requiere eco-aprobación y NO estamos usando el botón especial, lanzamos error.
         for sheet in self:
             if sheet.requiere_eco_aprobacion and not self.env.context.get('aprobacion_excepcional'):
@@ -68,7 +67,7 @@ class HrExpenseSheet(models.Model):
         # 2. Ejecutamos la aprobación normal de Odoo
         res = super(HrExpenseSheet, self).action_approve_expense_sheets()
         
-        # 3. Nuestra lógica de crear el registro en Carbon Track (La que ya tenías)
+        # 3. Lógica de crear el registro en el modulo
         meses = {1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio', 
                  7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'}
         
@@ -76,17 +75,25 @@ class HrExpenseSheet(models.Model):
             for expense in sheet.expense_line_ids:
                 if expense.es_gasto_contaminante and expense.actividad_id:
                     mes_nombre = meses.get(expense.date.month, 'Mes')
-                    nombre_periodo = f"{mes_nombre} {expense.date.year}"
-                    
-                    periodo = self.env['carbon.track.periodo'].search([('name', '=', nombre_periodo)], limit=1)
+                    # Buscamos primero si hay uno abierto (estado='abierto')
+                    periodo = self.env['carbon.track.periodo'].search([('estado', '=', 'abierto')], limit=1)
+
+                    # Si no hay ninguno abierto, buscamos uno en borrador
+                    if not periodo:
+                        periodo = self.env['carbon.track.periodo'].search([('estado', '=', 'borrador')], limit=1)
+
+                    # Solo si NO hay absolutamente nada, creamos uno
                     if not periodo:
                         periodo = self.env['carbon.track.periodo'].create({
-                            'name': nombre_periodo,
-                            'presupuesto_co2e': 5000.0 
+                        'name': f'Periodo Sistema - {fields.Date.today().year}',
+                        'fecha_inicio': fields.Date.today(),
+                        'fecha_fin': fields.Date.today(),
+                        'estado': 'abierto'
                         })
                     
+                    
                     self.env['carbon.track.registro'].create({
-                        'name': f'Gasto Auto: {expense.name}',
+                        'concepto': f'Gasto Auto: {expense.name}',
                         'fecha': expense.date,
                         'actividad_id': expense.actividad_id.id,
                         'periodo_id': periodo.id,

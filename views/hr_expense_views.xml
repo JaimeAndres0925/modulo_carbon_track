@@ -22,6 +22,10 @@
                        invisible="not es_gasto_contaminante" 
                        required="es_gasto_contaminante"
                        options="{'no_create': True}"/>
+                <field name="periodo_id" 
+                       invisible="not es_gasto_contaminante" 
+                       required="es_gasto_contaminante"
+                       options="{'no_create': True}"/>
             </xpath>
 
         </field>

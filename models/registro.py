@@ -5,15 +5,16 @@ class CarbonTrackRegistro(models.Model):
     _description = 'Registros de consumo (Datos de entrada)'
     _order = 'fecha desc'
     
-    name = fields.Char(string='Referencia', required=True, default='Nuevo')
+    name = fields.Char(string='Referencia', required=True, copy=False, readonly=True, default='Nuevo')
+    concepto = fields.Char(string='Concepto / Descripción', help="Ej: Vuelo a Madrid, Factura de la luz de Mayo...")
     
     #Relaciones del modelo de datos
-    periodo_id = fields.Many2one('carbon.track.periodo', string= 'Periodo', required=True) 
+    periodo_id = fields.Many2one('carbon.track.periodo', string= 'Periodo', required=True, ondelete='cascade') 
     actividad_id = fields.Many2one('carbon.track.actividad', string='Actividad', required=True) 
     
     #Datos de entrada
     fecha = fields.Date(string='Fecha', default=fields.Date.context_today) 
-    cantidad = fields.Float(string='Cantidad', required=True) 
+    cantidad = fields.Float(string='Magnitud de Consumo', required=True) 
     unidad = fields.Char(string='Unidad', related='actividad_id.unidad',readonly=True) 
     notas =fields.Text(string='Notas') 
     
@@ -37,13 +38,21 @@ class CarbonTrackRegistro(models.Model):
     @api.depends('valor_co2e')
     def _compute_nivel_impacto(self):
         for record in self:
-            # Puedes ajustar estos números según lo que consideres "mucho" o "poco" en tu TFG
-            if record.valor_co2e < 100.0:
+            if record.valor_co2e < 10000.0:
                 record.nivel_impacto = 'bajo'
-            elif record.valor_co2e <= 500.0:
+            elif record.valor_co2e <= 50000.0:
                 record.nivel_impacto = 'medio'
             else:
                 record.nivel_impacto = 'alto'
+                
+    # Metodo para usar el motor de secuencias de Odoo
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Nuevo') == 'Nuevo':
+                # Pedimos a Odoo el siguiente número de nuestra secuencia
+                vals['name'] = self.env['ir.sequence'].next_by_code('carbon.track.registro.secuencia') or 'Nuevo'
+        return super().create(vals_list)
 
     
     

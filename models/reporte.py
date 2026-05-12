@@ -14,9 +14,9 @@ class CarbonTrackReporte(models.Model):
 
     @api.depends('periodo_id')
     def _compute_totales(self):
-        """
-        Suma los cáculos realizados en el periodo seleccionado por cada alcance[cite:82, 83]
-        """
+    
+        # Suma los cáculos realizados en el periodo seleccionado por cada alcance
+        
         for report in self:
             registros = self.env['carbon.track.registro'].search([('periodo_id', '=', report.periodo_id.id)])
             report.total_alcance1 = sum(r.valor_co2e for r in registros if r.actividad_id.alcance_id.name == 'Alcance 1')

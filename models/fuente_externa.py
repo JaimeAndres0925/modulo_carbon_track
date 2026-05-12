@@ -1,7 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import requests
-import json
 
 class CarbonTrackFuenteExterna(models.Model):
     _name = 'carbon.track.fuente.externa'
@@ -24,10 +23,10 @@ class CarbonTrackFuenteExterna(models.Model):
         self.ensure_one()
         headers = {'Authorization': f'Bearer {self.api_key}'}
         
-        # Pedimos data_version porque Climatic
+
         parametros_prueba = {
-            'query': 'electricity', 
-            'results_per_page': 1,
+            'results_per_page': 30,     
+            'region': 'ES',             
             'data_version': '^5'
         }
         
@@ -64,15 +63,15 @@ class CarbonTrackFuenteExterna(models.Model):
 
         headers = {'Authorization': f'Bearer {self.api_key}'}
         
-        # 1. Búsqueda de los catálogos
+        anio_actual = fields.Date.today().year
+
         parametros_busqueda = {
-            'category': 'Electricity', 
-            'results_per_page': 5,
+            'results_per_page': 30,     
+            'region': 'ES',             
             'data_version': '^5'
         }
 
         try:
-            # Llamamos al buscador normal
             response_search = requests.get(self.base_url, headers=headers, params=parametros_busqueda, timeout=15)
             if response_search.status_code != 200:
                 raise UserError(f"Error en búsqueda: {response_search.status_code}")
@@ -82,23 +81,22 @@ class CarbonTrackFuenteExterna(models.Model):
             importados = 0
             existentes = 0
             nulos = 0
-            
+            # Cambio para poder hacer una consulta
             url_estimate = self.base_url.replace('/search', '/estimate')
             
             for item in resultados:
                 activity_id = item.get('activity_id')
+                dataset_info = item.get('source_dataset', 'Climatiq Default')   
                 if not activity_id:
                     continue
                     
-                nombre_completo = f"{item.get('name', 'Factor')} ({item.get('year', '2024')}) - {item.get('region', 'Global')}"
+                nombre_completo = f"{item.get('name', 'Factor')} ({item.get('year', fields.Date.today().year)}) - {item.get('region', 'Global')}"
                 
-                # Si ya lo tenemos, nos ahorramos la segunda llamada
                 if self.env['carbon.track.emision'].search([('name', '=', nombre_completo)], limit=1):
                     existentes += 1
                     continue
                 
                 tipo_unidad = item.get('unit_type')
-                
                 payload_estimacion = {
                     "emission_factor": {
                         "activity_id": activity_id,
@@ -110,38 +108,59 @@ class CarbonTrackFuenteExterna(models.Model):
                 
                 if tipo_unidad == 'Energy':
                     payload_estimacion['parameters'] = {"energy": 1, "energy_unit": "kWh"}
-                    unidad_final = 'kWh'
+                    unidad_final = 'kWh' # Energia
                 elif tipo_unidad == 'Weight':
                     payload_estimacion['parameters'] = {"weight": 1, "weight_unit": "kg"}
-                    unidad_final = 'kg'
+                    unidad_final = 'kg'  # Peso 
                 elif tipo_unidad == 'Volume':
                     payload_estimacion['parameters'] = {"volume": 1, "volume_unit": "l"}
-                    unidad_final = 'l'
+                    unidad_final = 'l'   # Volumen
+                elif tipo_unidad == 'Distance':
+                    payload_estimacion['parameters'] = {"distance": 1, "distance_unit": "km"}
+                    unidad_final = 'km'  # Distancia
+                elif tipo_unidad == 'Passenger-Distance':
+                    payload_estimacion['parameters'] = {"passenger_distance": 1, "passenger_distance_unit": "km"}
+                    unidad_final = 'pkm' # Pasajero-kilómetro (Viajes)
+                elif tipo_unidad == 'Money':
+                    payload_estimacion['parameters'] = {"money": 1, "money_unit": "eur"}
+                    unidad_final = '€'   # Gasto económico (Compras)
+                elif tipo_unidad == 'Time':
+                    payload_estimacion['parameters'] = {"time": 1, "time_unit": "h"}
+                    unidad_final = 'h'   # Horas (Uso de maquinaria)
+                elif tipo_unidad == 'Number':
+                    payload_estimacion['parameters'] = {"number": 1}
+                    unidad_final = 'ud'  # Unidades (Ej: Noches de hotel, equipos)
                 else:
-                    # Si es una magnitud que no se contenpla, la saltamos para no complicarlo
                     nulos += 1
                     continue
                     
-                # 3. Disparamos la consulta oculta de estimación
                 res_est = requests.post(url_estimate, headers=headers, json=payload_estimacion, timeout=10)
                 
                 if res_est.status_code == 200:
                     datos_est = res_est.json()
                     valor_co2e = float(datos_est.get('co2e', 0.0)) 
                     
+                    anio = item.get('year', fields.Date.today().year)
+                    fecha_inicio = f"{anio}-01-01"
+                    fecha_fin = f"{anio}-12-31"
+                    cat_api = item.get('category', 'General')
+                    
                     self.env['carbon.track.emision'].create({
                         'name': nombre_completo,
                         'valor': valor_co2e,
+                        'fuentes': dataset_info,
                         'unidad': unidad_final,
                         'es_oficial': True,
+                        'categoria': cat_api,
+                        'valido_desde': fecha_inicio,
+                        'valido_hasta': fecha_fin,
                     })
                     importados += 1
                 else:
                     nulos += 1
 
             self.ultima_sincronizacion = fields.Datetime.now()
-            
-
+            #Devolvemos una notificación con los FE importados existentes y descartados
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
@@ -149,7 +168,7 @@ class CarbonTrackFuenteExterna(models.Model):
                     'title': '¡Sincronización Completada!',
                     'message': f'Nuevos: {importados} | Existentes: {existentes} | Descartados: {nulos}',
                     'type': 'success',
-                    'sticky': True,    
+                    'sticky': True,
                 }
             }
             
