@@ -353,6 +353,60 @@
         </field>
     </record>
 
+    <record id="view_carbon_track_compensacion_form" model="ir.ui.view">
+    <field name="name">carbon.track.compensacion.form</field>
+    <field name="model">carbon.track.compensacion</field>
+    <field name="arch" type="xml">
+        <form string="Proyecto de Compensación">
+            <sheet>
+                <div class="oe_title">
+                    <span class="text-muted" invisible="codigo == 'Nuevo'">Referencia: </span>
+                    <h1>
+                        <field name="codigo" class="text-primary"/>
+                    </h1>
+                    <label for="name" string="Nombre del Proyecto"/>
+                    <h2>
+                        <field name="name" placeholder="Ej. Reforestación Sierra de Gredos"/>
+                    </h2>
+                </div>
+
+                <group>
+                    <group string="Detalles de la Acción" name="main_details">
+                        <field name="tipo" widget="priority" invisible="1"/> <field name="tipo" widget="selection_badge" options="{'horizontal': true}"/>
+                        <field name="fecha"/>
+                        <field name="periodo_id" options="{'no_create': True, 'no_open': False}"/>
+                    </group>
+
+                    <group string="Impacto Positivo" name="impact">
+                        <label for="co2e_compensado"/>
+                        <div class="o_row">
+                            <field name="co2e_compensado" class="oe_inline fw-bold" style="font-size: 1.2em; color: #28a745;"/>
+                            <span class="fw-bold">kg CO2e</span>
+                        </div>
+                        <div class="alert alert-info mt-2" role="alert" style="padding: 5px 10px;">
+                            <i class="fa fa-info-circle"/> Este valor se restará de la huella neta del periodo.
+                        </div>
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Documentación y Certificados" name="docs">
+                        <group>
+                            <field name="notas" widget="html" placeholder="Pega aquí el enlace al certificado oficial o detalles del proyecto..."/>
+                        </group>
+                    </page>
+                    <page string="Auditoría" name="audit">
+                        <group>
+                            <field name="create_uid" readonly="1" string="Registrado por"/>
+                            <field name="create_date" readonly="1" string="Fecha de registro"/>
+                        </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>    
+    </record>
+
     <!--Formulario de la fuente externa-->
     <record id="view_carbon_track_fuente_externa_form" model="ir.ui.view">
         <field name="name">carbon.track.fuente.externa.form</field>

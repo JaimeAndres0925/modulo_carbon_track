@@ -13,7 +13,11 @@ class CarbonTrackCompensacion(models.Model):
     tipo = fields.Selection([
         ('arboles', 'Plantación de Árboles'),
         ('bonos', 'Compra de Bonos de Carbono'),
-        ('energia', 'Certificados de Energía Renovable')
+        ('energia', 'Certificados de Energía Renovable'),
+        ('bosque', 'Conservación de Bosques (REDD+)'),
+        ('metano', 'Captura de Metano (Vertederos/Granjas)'),
+        ('azul', 'Carbono Azul (Manglares y Ecosistemas Marinos)'),
+        ('agricultura', 'Agricultura Regenerativa'),
     ], string='Tipo de Compensación', required=True)
     
     co2e_compensado = fields.Float(string='CO2e Compensado (kg)', required=True)
