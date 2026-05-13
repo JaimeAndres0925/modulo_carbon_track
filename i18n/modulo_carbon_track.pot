@@ -1,0 +1,1252 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* modulo_carbon_track
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-13 08:57+0000\n"
+"PO-Revision-Date: 2026-05-13 08:57+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__porcentaje_consumido
+msgid "% Consumido"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "% de"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.report,print_report_name:modulo_carbon_track.action_report_carbon_track
+msgid "'Informe_%s' % (object.periodo_id.name)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "1. Probar Conexión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "2. Sincronizar Catálogo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:mail.template,body_html:modulo_carbon_track.email_template_periodo
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Hola,<br/><br/>\n"
+"                    A continuación, se detalla el resumen del <strong>Informe de Huella de Carbono</strong> correspondiente al periodo <strong><t t-out=\"object.name\"/></strong>.\n"
+"                    <br/><br/>\n"
+"                    <strong>Resumen del Periodo:</strong>\n"
+"                    </p><ul>\n"
+"                        <li>Presupuesto Máximo: <t t-out=\"object.presupuesto_co2e\"/> kg</li>\n"
+"                        <li>Total Consumido: <t t-out=\"object.total_co2e_consumido\"/> kg</li>\n"
+"                        <li>Total Compensado: <t t-out=\"object.total_co2e_compensado\"/> kg</li>\n"
+"                        <li>Huella Neta Final: <strong><t t-out=\"object.huella_neta\"/> kg</strong></li>\n"
+"                    </ul>\n"
+"                    <br/>\n"
+"                    <t t-if=\"object.es_net_zero\">\n"
+"                        <span style=\"color: #28a745; font-weight: bold; font-size: 15px;\">\n"
+"                            Hemos alcanzado el objetivo Net Zero en este periodo.\n"
+"                        </span><br/><br/>\n"
+"                    </t>\n"
+"                    Gracias,<br/>\n"
+"                    Departamento de Sostenibilidad\n"
+"                \n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_sheet_form_inherit_carbon
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> <strong>¡Atención! Política de Sostenibilidad:</strong> \n"
+"                    Este informe de gastos contiene partidas que superan los 150 kg de CO2e. \n"
+"                    Requiere justificación y aprobación excepcional por parte de Sostenibilidad."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid ""
+"<i class=\"fa fa-external-link\"/> \n"
+"                        <strong>Nota para el usuario:</strong> Para una comprensión profunda, consulte la documentación oficial en el enlace superior."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/> <strong>Información de Auditoría:</strong> "
+"Al sincronizar, Odoo descargará los factores de emisión actualizados del GHG"
+" Protocol y de la EPA. Estos factores se bloquearán para evitar "
+"manipulaciones manuales por parte de los usuarios."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_form_inherit_carbon
+msgid ""
+"<i class=\"fa fa-leaf\"/> <strong>Impacto Ambiental Estimado:</strong> \n"
+"                    Este gasto generará"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_kanban
+msgid "<span class=\"badge rounded-pill bg-info text-dark\">Ver detalles</span>"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_actividad_form
+msgid "<span class=\"o_stat_text\">Registros</span>"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "<strong>Presupuesto consumido:</strong>"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__api_key
+msgid "API Key (Token)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Abrir Periodo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__actividad_id
+msgid "Actividad"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense__actividad_id
+msgid "Actividad Contaminante"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_actividad
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_actividad
+msgid "Actividades"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__activo
+msgid "Activo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_list
+msgid "Ahorro (kWh)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__ahorro_kwh
+msgid "Ahorro Anual (kWh)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__alcance_id
+msgid "Alcance"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Alcance 1 (Emisiones Directas)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Alcance 2 (Energía)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Alcance 3 (Indirectas)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_alcance
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_alcance_config
+msgid "Alcances"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_registro__nivel_impacto__alto
+msgid "Alto"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_graph
+msgid "Análisis de Emisiones"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_sheet_form_inherit_carbon
+msgid "Aprobación Excepcional (Eco)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Aquí aparecerá la respuesta de SICAES tras enviar la solicitud..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Añade aquí detalles sobre la factura o el ticket..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_registro__nivel_impacto__bajo
+msgid "Bajo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Balance Ecológico"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_cae__estado__draft
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_periodo__estado__borrador
+msgid "Borrador"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__co2e_compensado
+msgid "CO2e Compensado (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense__co2e_estimado
+msgid "CO2e Estimado (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__total_co2e_acumulado
+msgid "CO2e Total"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "CONECTADO"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__cups
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__cups
+msgid "CUPS"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_root
+msgid "Carbon Track"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__categoria
+msgid "Categoria"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_periodo__estado__cerrado
+msgid "Cerrado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Cerrar Periodo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Certificado CAE"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_cae
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__cae_ids
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_cae_main
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_list
+msgid "Certificados CAE"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_compensacion__tipo__energia
+msgid "Certificados de Energía Renovable"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_compensacion
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_compensacion
+msgid "Compensaciones"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_compensacion__tipo__bonos
+msgid "Compra de Bonos de Carbono"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Concepto"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__concepto
+msgid "Concepto / Descripción"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_fuente_externa__estado__conectado
+msgid "Conexión Exitosa"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_fuente_externa
+msgid "Conexión a APIs Oficiales (Climatiq)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_config
+msgid "Configuración"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Consumo Reportado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Control de Presupuesto"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense__coste_ambiental
+msgid "Coste Ambiental"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.actions.act_window,help:modulo_carbon_track.action_carbon_track_registro
+msgid "Crea tu primer registro de consumo para empezar a medir la huella."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__create_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__create_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "Credenciales"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Cálculo de Consumo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__codigo
+msgid "Código"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__cups
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_registro__cups
+msgid "Código Universal del Punto de Suministro"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__es_oficial
+msgid "Datos Oficiales Verificados"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Datos Técnicos"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_alcance
+msgid "Define los alcances del GHG Protocol"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__description
+msgid "Descripcion"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__descripcion
+msgid "Descripción"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__display_name
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__documento_apoyo
+msgid "Documento PDF de Apoyo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Ej. Mayo 2026"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_registro__concepto
+msgid "Ej: Vuelo a Madrid, Factura de la luz de Mayo..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Emisiones (kg CO2e)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_periodo__estado__abierto
+msgid "En Curso"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__enlace_guia
+msgid "Enlace a Guía Oficial (URL)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_cae__estado__sent
+msgid "Enviado a SICAES"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Enviar Informe por Email"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Enviar al Ministerio"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:mail.template,name:modulo_carbon_track.email_template_periodo
+msgid "Envío de Informe de Sostenibilidad"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_fuente_externa__estado__error
+msgid "Error de Conexión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__estado
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__estado
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__estado
+msgid "Estado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_hr_expense
+msgid "Expense"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_hr_expense_sheet
+msgid "Expense Report"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "Explica aquí qué incluye este alcance..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__factor_emision_id
+msgid "Factor de Emisión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_emision
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_emision_config
+msgid "Factores de Emisión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_emision
+msgid "Factores de emisión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__fecha
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__fecha
+msgid "Fecha"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__fecha_fin
+msgid "Fecha de Fin"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__fecha_de_generacion
+msgid "Fecha de Generación"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__fecha_inicio
+msgid "Fecha de Inicio"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__fecha_solicitud
+msgid "Fecha de Solicitud"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Fechas del Periodo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "Ficha de Alcance"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__fuente_externa_id
+msgid "Fuente de Datos"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__fuentes
+msgid "Fuentes"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_fuente_externa_config
+msgid "Fuentes Externas (API)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_fuente_externa
+msgid "Fuentes Externas API"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.actions.act_window,help:modulo_carbon_track.action_carbon_track_cae
+msgid ""
+"Gestiona aquí las certificaciones de ahorro energético\n"
+"                enviadas al Ministerio a través de SICAES."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:res.groups,name:modulo_carbon_track.group_carbon_track_manager
+msgid "Gestor (Configuración Total)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Huella Neta Final"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__huella_neta
+msgid "Huella de Carbono Neta (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__id
+msgid "ID"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__cae_external_id
+msgid "ID Oficial SICAES"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__imagen
+msgid "Icono del Alcance"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__message_has_error
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__nivel_impacto
+msgid "Impacto"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Información Base"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "Información Didáctica"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Información Principal"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "Información de Sincronización"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Informe Huella de Carbono"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.report,name:modulo_carbon_track.action_report_carbon_track
+msgid "Informe de Huella de Carbono"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:mail.template,subject:modulo_carbon_track.email_template_periodo
+msgid "Informe de Huella de Carbono: {{ object.name }}"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_reports
+msgid "Informes"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_reporte
+msgid "Informes agregados por periodo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_reporte
+msgid "Informes de Emisiones"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__write_uid
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__write_date
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Log de Conexión API"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__api_response_log
+msgid "Log de la API"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__cantidad
+msgid "Magnitud de Consumo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_cae_form
+msgid "Marcar como Aprobado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_registro__nivel_impacto__medio
+msgid "Medio"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.module.category,description:modulo_carbon_track.module_category_carbon_track
+msgid "Niveles de acceso para la huella de carbono."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__name
+msgid "Nombre"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__name
+msgid "Nombre (Alcance 1, 2, 3)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__name
+msgid "Nombre de la Fuente"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__name
+msgid "Nombre de la actividad"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_alcance__documento_nombre
+msgid "Nombre del Archivo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__name
+msgid "Nombre del Factor"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__name
+msgid "Nombre del Informe"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__name
+msgid "Nombre del Proyecto"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__notas
+msgid "Notas"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__notas
+msgid "Notas o URL del Certificado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Notas y Auditoría"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__registro_count
+msgid "Nº Registros"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_operations
+msgid "Operaciones"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_fuente_externa_form
+msgid "Pega aquí tu token de Climatiq..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__periodo_id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__periodo_id
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__periodo_id
+msgid "Periodo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense__periodo_id
+msgid "Periodo de Cálculo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_periodo
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_periodo_config
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_list
+msgid "Periodos"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_periodo
+msgid "Periodos de Seguimiento"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_compensacion__tipo__arboles
+msgid "Plantación de Árboles"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__presupuesto_co2e
+msgid "Presupuesto Máximo (kg CO2e)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__compensacion_ids
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Proyectos de Compensación"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_compensacion
+msgid "Proyectos de Compensación de Carbono"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_cae__estado__rejected
+msgid "Rechazado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "Recursos de Apoyo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__codigo
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__name
+msgid "Referencia"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__name
+msgid "Referencia CAE"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_form
+msgid "Registro de Emisión"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__huella_id
+msgid "Registro de Huella"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.actions.act_window,name:modulo_carbon_track.action_carbon_track_registro
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_registro
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_list
+msgid "Registros de Consumo"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_registro
+msgid "Registros de consumo (Datos de entrada)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense_sheet__requiere_eco_aprobacion
+msgid "Requiere Eco-Aprobación"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.ui.menu,name:modulo_carbon_track.menu_carbon_track_reporte_list
+msgid "Resumen de Emisiones"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_form_inherit_carbon
+msgid "Selecciona actividad ambiental..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_emision__es_oficial
+msgid ""
+"Si está marcado, este factor fue importado de una base de datos "
+"gubernamental y no se puede alterar."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_fuente_externa__estado__borrador
+msgid "Sin Conectar"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_cae
+msgid "Solicitud de Certificado CAE"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.module.category,name:modulo_carbon_track.module_category_carbon_track
+msgid "Sostenibilidad (Carbon Track)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "Tipo de Alcance"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_compensacion__tipo
+msgid "Tipo de Compensación"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Total"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__total_alcance1
+msgid "Total Alcance 1"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__total_alcance2
+msgid "Total Alcance 2"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_reporte__total_alcance3
+msgid "Total Alcance 3"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_registro_list
+msgid "Total CO2e Generado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Total Compensado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__total_co2e_compensado
+msgid "Total Compensado (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__total_co2e_consumido
+msgid "Total Consumido (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "Total Generado"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__valor_co2e
+msgid "Total c02E (kg)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__base_url
+msgid "URL Base"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_registro__unidad
+msgid "Unidad"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__unidad
+msgid "Unidad (kWh, litros, etc.)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_actividad__unidad
+msgid "Unidad de Medida"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:res.groups,name:modulo_carbon_track.group_carbon_track_user
+msgid "Usuario (Solo Registro)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields.selection,name:modulo_carbon_track.selection__carbon_track_cae__estado__approved
+msgid "Validado por Ministerio"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__valido_desde
+msgid "Valido desde"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__valido_hasta
+msgid "Valido hasta"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_emision__valor
+msgid "Valor (kg CO2e por unidad)"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "Volver a Borrador"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_cae__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,help:modulo_carbon_track.field_carbon_track_cae__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model,name:modulo_carbon_track.model_carbon_track_actividad
+msgid "carbon.track.actividad"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_alcance_form
+msgid "https://www.miteco.gob.es/..."
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_actividad_form
+msgid "kg"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_form_inherit_carbon
+msgid ""
+"kg de CO2e. \n"
+"                    El coste ambiental interno asumido es de"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.actions.act_window,help:modulo_carbon_track.action_carbon_track_cae
+msgid "¡Crea tu primera solicitud CAE!"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_carbon_track_periodo_form
+msgid "¡NET ZERO!"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.report_huella_template
+msgid "¡Objetivo Net Zero Alcanzado!"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_hr_expense__es_gasto_contaminante
+#: model_terms:ir.ui.view,arch_db:modulo_carbon_track.view_hr_expense_form_inherit_carbon
+msgid "¿Genera Huella de Carbono?"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_periodo__es_net_zero
+msgid "¿Net Zero Alcanzado?"
+msgstr ""
+
+#. module: modulo_carbon_track
+#: model:ir.model.fields,field_description:modulo_carbon_track.field_carbon_track_fuente_externa__ultima_sincronizacion
+msgid "Última Sincronización"
+msgstr ""

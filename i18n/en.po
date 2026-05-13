@@ -1,0 +1,1000 @@
+# English translation for modulo_carbon_track
+# Copyright (C) 2026 Jaime Andrés Venegas Cárdenas
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-13 08:57+0000\n"
+"PO-Revision-Date: 2026-05-13 08:57+0000\n"
+"Last-Translator: Jaime Andrés Venegas Cárdenas\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: modulo_carbon_track
+msgid "% Consumido"
+msgstr "% Consumed"
+
+#. module: modulo_carbon_track
+msgid "% de"
+msgstr "% of"
+
+#. module: modulo_carbon_track
+msgid "'Informe_%s' % (object.periodo_id.name)"
+msgstr "'Report_%s' % (object.periodo_id.name)"
+
+#. module: modulo_carbon_track
+msgid "1. Probar Conexión"
+msgstr "1. Test Connection"
+
+#. module: modulo_carbon_track
+msgid "2. Sincronizar Catálogo"
+msgstr "2. Sync Catalogue"
+
+#. module: modulo_carbon_track
+msgid ""
+"<div style=\"margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Hola,<br/><br/>\n"
+"                    A continuación, se detalla el resumen del <strong>Informe de Huella de Carbono</strong> correspondiente al periodo <strong><t t-out=\"object.name\"/></strong>.\n"
+"                    <br/><br/>\n"
+"                    <strong>Resumen del Periodo:</strong>\n"
+"                    </p><ul>\n"
+"                        <li>Presupuesto Máximo: <t t-out=\"object.presupuesto_co2e\"/> kg</li>\n"
+"                        <li>Total Consumido: <t t-out=\"object.total_co2e_consumido\"/> kg</li>\n"
+"                        <li>Total Compensado: <t t-out=\"object.total_co2e_compensado\"/> kg</li>\n"
+"                        <li>Huella Neta Final: <strong><t t-out=\"object.huella_neta\"/> kg</strong></li>\n"
+"                    </ul>\n"
+"                    <br/>\n"
+"                    <t t-if=\"object.es_net_zero\">\n"
+"                        <span style=\"color: #28a745; font-weight: bold; font-size: 15px;\">\n"
+"                            Hemos alcanzado el objetivo Net Zero en este periodo.\n"
+"                        </span><br/><br/>\n"
+"                    </t>\n"
+"                    Gracias,<br/>\n"
+"                    Departamento de Sostenibilidad\n"
+"                \n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Hello,<br/><br/>\n"
+"                    Below is the summary of the <strong>Carbon Footprint Report</strong> for the period <strong><t t-out=\"object.name\"/></strong>.\n"
+"                    <br/><br/>\n"
+"                    <strong>Period Summary:</strong>\n"
+"                    </p><ul>\n"
+"                        <li>Maximum Budget: <t t-out=\"object.presupuesto_co2e\"/> kg</li>\n"
+"                        <li>Total Consumed: <t t-out=\"object.total_co2e_consumido\"/> kg</li>\n"
+"                        <li>Total Offset: <t t-out=\"object.total_co2e_compensado\"/> kg</li>\n"
+"                        <li>Final Net Footprint: <strong><t t-out=\"object.huella_neta\"/> kg</strong></li>\n"
+"                    </ul>\n"
+"                    <br/>\n"
+"                    <t t-if=\"object.es_net_zero\">\n"
+"                        <span style=\"color: #28a745; font-weight: bold; font-size: 15px;\">\n"
+"                            We have reached the Net Zero target for this period.\n"
+"                        </span><br/><br/>\n"
+"                    </t>\n"
+"                    Thank you,<br/>\n"
+"                    Sustainability Department\n"
+"                \n"
+"            </div>\n"
+"        "
+
+#. module: modulo_carbon_track
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> <strong>¡Atención! Política de Sostenibilidad:</strong> \n"
+"                    Este informe de gastos contiene partidas que superan los 150 kg de CO2e. \n"
+"                    Requiere justificación y aprobación excepcional por parte de Sostenibilidad."
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> <strong>Attention! Sustainability Policy:</strong> \n"
+"                    This expense report contains items exceeding 150 kg of CO2e. \n"
+"                    It requires justification and exceptional approval from the Sustainability team."
+
+#. module: modulo_carbon_track
+msgid ""
+"<i class=\"fa fa-external-link\"/> \n"
+"                        <strong>Nota para el usuario:</strong> Para una comprensión profunda, consulte la documentación oficial en el enlace superior."
+msgstr ""
+"<i class=\"fa fa-external-link\"/> \n"
+"                        <strong>Note for the user:</strong> For a deeper understanding, please consult the official documentation at the link above."
+
+#. module: modulo_carbon_track
+msgid ""
+"<i class=\"fa fa-info-circle\"/> <strong>Información de Auditoría:</strong> "
+"Al sincronizar, Odoo descargará los factores de emisión actualizados del GHG"
+" Protocol y de la EPA. Estos factores se bloquearán para evitar "
+"manipulaciones manuales por parte de los usuarios."
+msgstr ""
+"<i class=\"fa fa-info-circle\"/> <strong>Audit Information:</strong> "
+"When syncing, Odoo will download updated emission factors from the GHG "
+"Protocol and the EPA. These factors will be locked to prevent "
+"manual manipulation by users."
+
+#. module: modulo_carbon_track
+msgid ""
+"<i class=\"fa fa-leaf\"/> <strong>Impacto Ambiental Estimado:</strong> \n"
+"                    Este gasto generará"
+msgstr ""
+"<i class=\"fa fa-leaf\"/> <strong>Estimated Environmental Impact:</strong> \n"
+"                    This expense will generate"
+
+#. module: modulo_carbon_track
+msgid "<span class=\"badge rounded-pill bg-info text-dark\">Ver detalles</span>"
+msgstr "<span class=\"badge rounded-pill bg-info text-dark\">View details</span>"
+
+#. module: modulo_carbon_track
+msgid "<span class=\"o_stat_text\">Registros</span>"
+msgstr "<span class=\"o_stat_text\">Records</span>"
+
+#. module: modulo_carbon_track
+msgid "<strong>Presupuesto consumido:</strong>"
+msgstr "<strong>Budget consumed:</strong>"
+
+#. module: modulo_carbon_track
+msgid "API Key (Token)"
+msgstr "API Key (Token)"
+
+#. module: modulo_carbon_track
+msgid "Abrir Periodo"
+msgstr "Open Period"
+
+#. module: modulo_carbon_track
+msgid "Action Needed"
+msgstr "Action Needed"
+
+#. module: modulo_carbon_track
+msgid "Actividad"
+msgstr "Activity"
+
+#. module: modulo_carbon_track
+msgid "Actividad Contaminante"
+msgstr "Polluting Activity"
+
+#. module: modulo_carbon_track
+msgid "Actividades"
+msgstr "Activities"
+
+#. module: modulo_carbon_track
+msgid "Activities"
+msgstr "Activities"
+
+#. module: modulo_carbon_track
+msgid "Activity Exception Decoration"
+msgstr "Activity Exception Decoration"
+
+#. module: modulo_carbon_track
+msgid "Activity State"
+msgstr "Activity State"
+
+#. module: modulo_carbon_track
+msgid "Activity Type Icon"
+msgstr "Activity Type Icon"
+
+#. module: modulo_carbon_track
+msgid "Activo"
+msgstr "Active"
+
+#. module: modulo_carbon_track
+msgid "Ahorro (kWh)"
+msgstr "Savings (kWh)"
+
+#. module: modulo_carbon_track
+msgid "Ahorro Anual (kWh)"
+msgstr "Annual Savings (kWh)"
+
+#. module: modulo_carbon_track
+msgid "Alcance"
+msgstr "Scope"
+
+#. module: modulo_carbon_track
+msgid "Alcance 1 (Emisiones Directas)"
+msgstr "Scope 1 (Direct Emissions)"
+
+#. module: modulo_carbon_track
+msgid "Alcance 2 (Energía)"
+msgstr "Scope 2 (Energy)"
+
+#. module: modulo_carbon_track
+msgid "Alcance 3 (Indirectas)"
+msgstr "Scope 3 (Indirect)"
+
+#. module: modulo_carbon_track
+msgid "Alcances"
+msgstr "Scopes"
+
+#. module: modulo_carbon_track
+msgid "Alto"
+msgstr "High"
+
+#. module: modulo_carbon_track
+msgid "Análisis de Emisiones"
+msgstr "Emissions Analysis"
+
+#. module: modulo_carbon_track
+msgid "Aprobación Excepcional (Eco)"
+msgstr "Exceptional Approval (Eco)"
+
+#. module: modulo_carbon_track
+msgid "Aquí aparecerá la respuesta de SICAES tras enviar la solicitud..."
+msgstr "The SICAES response will appear here after submitting the request..."
+
+#. module: modulo_carbon_track
+msgid "Attachment Count"
+msgstr "Attachment Count"
+
+#. module: modulo_carbon_track
+msgid "Añade aquí detalles sobre la factura o el ticket..."
+msgstr "Add details about the invoice or receipt here..."
+
+#. module: modulo_carbon_track
+msgid "Bajo"
+msgstr "Low"
+
+#. module: modulo_carbon_track
+msgid "Balance Ecológico"
+msgstr "Ecological Balance"
+
+#. module: modulo_carbon_track
+msgid "Borrador"
+msgstr "Draft"
+
+#. module: modulo_carbon_track
+msgid "CO2e Compensado (kg)"
+msgstr "Offset CO2e (kg)"
+
+#. module: modulo_carbon_track
+msgid "CO2e Estimado (kg)"
+msgstr "Estimated CO2e (kg)"
+
+#. module: modulo_carbon_track
+msgid "CO2e Total"
+msgstr "Total CO2e"
+
+#. module: modulo_carbon_track
+msgid "CONECTADO"
+msgstr "CONNECTED"
+
+#. module: modulo_carbon_track
+msgid "CUPS"
+msgstr "CUPS"
+
+#. module: modulo_carbon_track
+msgid "Carbon Track"
+msgstr "Carbon Track"
+
+#. module: modulo_carbon_track
+msgid "Categoria"
+msgstr "Category"
+
+#. module: modulo_carbon_track
+msgid "Cerrado"
+msgstr "Closed"
+
+#. module: modulo_carbon_track
+msgid "Cerrar Periodo"
+msgstr "Close Period"
+
+#. module: modulo_carbon_track
+msgid "Certificado CAE"
+msgstr "CAE Certificate"
+
+#. module: modulo_carbon_track
+msgid "Certificados CAE"
+msgstr "CAE Certificates"
+
+#. module: modulo_carbon_track
+msgid "Certificados de Energía Renovable"
+msgstr "Renewable Energy Certificates"
+
+#. module: modulo_carbon_track
+msgid "Compensaciones"
+msgstr "Offsets"
+
+#. module: modulo_carbon_track
+msgid "Compra de Bonos de Carbono"
+msgstr "Purchase of Carbon Credits"
+
+#. module: modulo_carbon_track
+msgid "Concepto"
+msgstr "Concept"
+
+#. module: modulo_carbon_track
+msgid "Concepto / Descripción"
+msgstr "Concept / Description"
+
+#. module: modulo_carbon_track
+msgid "Conexión Exitosa"
+msgstr "Successful Connection"
+
+#. module: modulo_carbon_track
+msgid "Conexión a APIs Oficiales (Climatiq)"
+msgstr "Connection to Official APIs (Climatiq)"
+
+#. module: modulo_carbon_track
+msgid "Configuración"
+msgstr "Configuration"
+
+#. module: modulo_carbon_track
+msgid "Consumo Reportado"
+msgstr "Reported Consumption"
+
+#. module: modulo_carbon_track
+msgid "Control de Presupuesto"
+msgstr "Budget Control"
+
+#. module: modulo_carbon_track
+msgid "Coste Ambiental"
+msgstr "Environmental Cost"
+
+#. module: modulo_carbon_track
+msgid "Crea tu primer registro de consumo para empezar a medir la huella."
+msgstr "Create your first consumption record to start measuring your footprint."
+
+#. module: modulo_carbon_track
+msgid "Created by"
+msgstr "Created by"
+
+#. module: modulo_carbon_track
+msgid "Created on"
+msgstr "Created on"
+
+#. module: modulo_carbon_track
+msgid "Credenciales"
+msgstr "Credentials"
+
+#. module: modulo_carbon_track
+msgid "Cálculo de Consumo"
+msgstr "Consumption Calculation"
+
+#. module: modulo_carbon_track
+msgid "Código"
+msgstr "Code"
+
+#. module: modulo_carbon_track
+msgid "Código Universal del Punto de Suministro"
+msgstr "Universal Supply Point Code"
+
+#. module: modulo_carbon_track
+msgid "Datos Oficiales Verificados"
+msgstr "Verified Official Data"
+
+#. module: modulo_carbon_track
+msgid "Datos Técnicos"
+msgstr "Technical Data"
+
+#. module: modulo_carbon_track
+msgid "Define los alcances del GHG Protocol"
+msgstr "Defines the GHG Protocol scopes"
+
+#. module: modulo_carbon_track
+msgid "Descripcion"
+msgstr "Description"
+
+#. module: modulo_carbon_track
+msgid "Descripción"
+msgstr "Description"
+
+#. module: modulo_carbon_track
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: modulo_carbon_track
+msgid "Documento PDF de Apoyo"
+msgstr "Supporting PDF Document"
+
+#. module: modulo_carbon_track
+msgid "Ej. Mayo 2026"
+msgstr "E.g. May 2026"
+
+#. module: modulo_carbon_track
+msgid "Ej: Vuelo a Madrid, Factura de la luz de Mayo..."
+msgstr "E.g. Flight to Madrid, May electricity bill..."
+
+#. module: modulo_carbon_track
+msgid "Emisiones (kg CO2e)"
+msgstr "Emissions (kg CO2e)"
+
+#. module: modulo_carbon_track
+msgid "En Curso"
+msgstr "In Progress"
+
+#. module: modulo_carbon_track
+msgid "Enlace a Guía Oficial (URL)"
+msgstr "Link to Official Guide (URL)"
+
+#. module: modulo_carbon_track
+msgid "Enviado a SICAES"
+msgstr "Sent to SICAES"
+
+#. module: modulo_carbon_track
+msgid "Enviar Informe por Email"
+msgstr "Send Report by Email"
+
+#. module: modulo_carbon_track
+msgid "Enviar al Ministerio"
+msgstr "Send to Ministry"
+
+#. module: modulo_carbon_track
+msgid "Envío de Informe de Sostenibilidad"
+msgstr "Sustainability Report Submission"
+
+#. module: modulo_carbon_track
+msgid "Error de Conexión"
+msgstr "Connection Error"
+
+#. module: modulo_carbon_track
+msgid "Estado"
+msgstr "Status"
+
+#. module: modulo_carbon_track
+msgid "Expense"
+msgstr "Expense"
+
+#. module: modulo_carbon_track
+msgid "Expense Report"
+msgstr "Expense Report"
+
+#. module: modulo_carbon_track
+msgid "Explica aquí qué incluye este alcance..."
+msgstr "Explain here what this scope includes..."
+
+#. module: modulo_carbon_track
+msgid "Factor de Emisión"
+msgstr "Emission Factor"
+
+#. module: modulo_carbon_track
+msgid "Factores de Emisión"
+msgstr "Emission Factors"
+
+#. module: modulo_carbon_track
+msgid "Factores de emisión"
+msgstr "Emission factors"
+
+#. module: modulo_carbon_track
+msgid "Fecha"
+msgstr "Date"
+
+#. module: modulo_carbon_track
+msgid "Fecha de Fin"
+msgstr "End Date"
+
+#. module: modulo_carbon_track
+msgid "Fecha de Generación"
+msgstr "Generation Date"
+
+#. module: modulo_carbon_track
+msgid "Fecha de Inicio"
+msgstr "Start Date"
+
+#. module: modulo_carbon_track
+msgid "Fecha de Solicitud"
+msgstr "Request Date"
+
+#. module: modulo_carbon_track
+msgid "Fechas del Periodo"
+msgstr "Period Dates"
+
+#. module: modulo_carbon_track
+msgid "Ficha de Alcance"
+msgstr "Scope Sheet"
+
+#. module: modulo_carbon_track
+msgid "Followers"
+msgstr "Followers"
+
+#. module: modulo_carbon_track
+msgid "Followers (Partners)"
+msgstr "Followers (Partners)"
+
+#. module: modulo_carbon_track
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome icon e.g. fa-tasks"
+
+#. module: modulo_carbon_track
+msgid "Fuente de Datos"
+msgstr "Data Source"
+
+#. module: modulo_carbon_track
+msgid "Fuentes"
+msgstr "Sources"
+
+#. module: modulo_carbon_track
+msgid "Fuentes Externas (API)"
+msgstr "External Sources (API)"
+
+#. module: modulo_carbon_track
+msgid "Fuentes Externas API"
+msgstr "External API Sources"
+
+#. module: modulo_carbon_track
+msgid ""
+"Gestiona aquí las certificaciones de ahorro energético\n"
+"                enviadas al Ministerio a través de SICAES."
+msgstr ""
+"Manage here the energy saving certifications\n"
+"                sent to the Ministry through SICAES."
+
+#. module: modulo_carbon_track
+msgid "Gestor (Configuración Total)"
+msgstr "Manager (Full Configuration)"
+
+#. module: modulo_carbon_track
+msgid "Has Message"
+msgstr "Has Message"
+
+#. module: modulo_carbon_track
+msgid "Huella Neta Final"
+msgstr "Final Net Footprint"
+
+#. module: modulo_carbon_track
+msgid "Huella de Carbono Neta (kg)"
+msgstr "Net Carbon Footprint (kg)"
+
+#. module: modulo_carbon_track
+msgid "ID"
+msgstr "ID"
+
+#. module: modulo_carbon_track
+msgid "ID Oficial SICAES"
+msgstr "Official SICAES ID"
+
+#. module: modulo_carbon_track
+msgid "Icon"
+msgstr "Icon"
+
+#. module: modulo_carbon_track
+msgid "Icon to indicate an exception activity."
+msgstr "Icon to indicate an exception activity."
+
+#. module: modulo_carbon_track
+msgid "Icono del Alcance"
+msgstr "Scope Icon"
+
+#. module: modulo_carbon_track
+msgid "If checked, new messages require your attention."
+msgstr "If checked, new messages require your attention."
+
+#. module: modulo_carbon_track
+msgid "If checked, some messages have a delivery error."
+msgstr "If checked, some messages have a delivery error."
+
+#. module: modulo_carbon_track
+msgid "Impacto"
+msgstr "Impact"
+
+#. module: modulo_carbon_track
+msgid "Información Base"
+msgstr "Base Information"
+
+#. module: modulo_carbon_track
+msgid "Información Didáctica"
+msgstr "Educational Information"
+
+#. module: modulo_carbon_track
+msgid "Información Principal"
+msgstr "Main Information"
+
+#. module: modulo_carbon_track
+msgid "Información de Sincronización"
+msgstr "Synchronization Information"
+
+#. module: modulo_carbon_track
+msgid "Informe Huella de Carbono"
+msgstr "Carbon Footprint Report"
+
+#. module: modulo_carbon_track
+msgid "Informe de Huella de Carbono"
+msgstr "Carbon Footprint Report"
+
+#. module: modulo_carbon_track
+msgid "Informe de Huella de Carbono: {{ object.name }}"
+msgstr "Carbon Footprint Report: {{ object.name }}"
+
+#. module: modulo_carbon_track
+msgid "Informes"
+msgstr "Reports"
+
+#. module: modulo_carbon_track
+msgid "Informes agregados por periodo"
+msgstr "Aggregated reports by period"
+
+#. module: modulo_carbon_track
+msgid "Informes de Emisiones"
+msgstr "Emissions Reports"
+
+#. module: modulo_carbon_track
+msgid "Is Follower"
+msgstr "Is Follower"
+
+#. module: modulo_carbon_track
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: modulo_carbon_track
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: modulo_carbon_track
+msgid "Log de Conexión API"
+msgstr "API Connection Log"
+
+#. module: modulo_carbon_track
+msgid "Log de la API"
+msgstr "API Log"
+
+#. module: modulo_carbon_track
+msgid "Magnitud de Consumo"
+msgstr "Consumption Magnitude"
+
+#. module: modulo_carbon_track
+msgid "Marcar como Aprobado"
+msgstr "Mark as Approved"
+
+#. module: modulo_carbon_track
+msgid "Medio"
+msgstr "Medium"
+
+#. module: modulo_carbon_track
+msgid "Message Delivery error"
+msgstr "Message Delivery error"
+
+#. module: modulo_carbon_track
+msgid "Messages"
+msgstr "Messages"
+
+#. module: modulo_carbon_track
+msgid "My Activity Deadline"
+msgstr "My Activity Deadline"
+
+#. module: modulo_carbon_track
+msgid "Next Activity Deadline"
+msgstr "Next Activity Deadline"
+
+#. module: modulo_carbon_track
+msgid "Next Activity Summary"
+msgstr "Next Activity Summary"
+
+#. module: modulo_carbon_track
+msgid "Next Activity Type"
+msgstr "Next Activity Type"
+
+#. module: modulo_carbon_track
+msgid "Niveles de acceso para la huella de carbono."
+msgstr "Access levels for carbon footprint management."
+
+#. module: modulo_carbon_track
+msgid "Nombre"
+msgstr "Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre (Alcance 1, 2, 3)"
+msgstr "Name (Scope 1, 2, 3)"
+
+#. module: modulo_carbon_track
+msgid "Nombre de la Fuente"
+msgstr "Source Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre de la actividad"
+msgstr "Activity Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre del Archivo"
+msgstr "File Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre del Factor"
+msgstr "Factor Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre del Informe"
+msgstr "Report Name"
+
+#. module: modulo_carbon_track
+msgid "Nombre del Proyecto"
+msgstr "Project Name"
+
+#. module: modulo_carbon_track
+msgid "Notas"
+msgstr "Notes"
+
+#. module: modulo_carbon_track
+msgid "Notas o URL del Certificado"
+msgstr "Notes or Certificate URL"
+
+#. module: modulo_carbon_track
+msgid "Notas y Auditoría"
+msgstr "Notes and Audit"
+
+#. module: modulo_carbon_track
+msgid "Number of Actions"
+msgstr "Number of Actions"
+
+#. module: modulo_carbon_track
+msgid "Number of errors"
+msgstr "Number of errors"
+
+#. module: modulo_carbon_track
+msgid "Number of messages requiring action"
+msgstr "Number of messages requiring action"
+
+#. module: modulo_carbon_track
+msgid "Number of messages with delivery error"
+msgstr "Number of messages with delivery error"
+
+#. module: modulo_carbon_track
+msgid "Nº Registros"
+msgstr "No. Records"
+
+#. module: modulo_carbon_track
+msgid "Operaciones"
+msgstr "Operations"
+
+#. module: modulo_carbon_track
+msgid "Pega aquí tu token de Climatiq..."
+msgstr "Paste your Climatiq token here..."
+
+#. module: modulo_carbon_track
+msgid "Periodo"
+msgstr "Period"
+
+#. module: modulo_carbon_track
+msgid "Periodo de Cálculo"
+msgstr "Calculation Period"
+
+#. module: modulo_carbon_track
+msgid "Periodos"
+msgstr "Periods"
+
+#. module: modulo_carbon_track
+msgid "Periodos de Seguimiento"
+msgstr "Tracking Periods"
+
+#. module: modulo_carbon_track
+msgid "Plantación de Árboles"
+msgstr "Tree Planting"
+
+#. module: modulo_carbon_track
+msgid "Presupuesto Máximo (kg CO2e)"
+msgstr "Maximum Budget (kg CO2e)"
+
+#. module: modulo_carbon_track
+msgid "Proyectos de Compensación"
+msgstr "Offset Projects"
+
+#. module: modulo_carbon_track
+msgid "Proyectos de Compensación de Carbono"
+msgstr "Carbon Offset Projects"
+
+#. module: modulo_carbon_track
+msgid "Rechazado"
+msgstr "Rejected"
+
+#. module: modulo_carbon_track
+msgid "Recursos de Apoyo"
+msgstr "Supporting Resources"
+
+#. module: modulo_carbon_track
+msgid "Referencia"
+msgstr "Reference"
+
+#. module: modulo_carbon_track
+msgid "Referencia CAE"
+msgstr "CAE Reference"
+
+#. module: modulo_carbon_track
+msgid "Registro de Emisión"
+msgstr "Emission Record"
+
+#. module: modulo_carbon_track
+msgid "Registro de Huella"
+msgstr "Footprint Record"
+
+#. module: modulo_carbon_track
+msgid "Registros de Consumo"
+msgstr "Consumption Records"
+
+#. module: modulo_carbon_track
+msgid "Registros de consumo (Datos de entrada)"
+msgstr "Consumption records (Input data)"
+
+#. module: modulo_carbon_track
+msgid "Requiere Eco-Aprobación"
+msgstr "Requires Eco-Approval"
+
+#. module: modulo_carbon_track
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: modulo_carbon_track
+msgid "Resumen de Emisiones"
+msgstr "Emissions Summary"
+
+#. module: modulo_carbon_track
+msgid "SMS Delivery error"
+msgstr "SMS Delivery error"
+
+#. module: modulo_carbon_track
+msgid "Selecciona actividad ambiental..."
+msgstr "Select environmental activity..."
+
+#. module: modulo_carbon_track
+msgid ""
+"Si está marcado, este factor fue importado de una base de datos "
+"gubernamental y no se puede alterar."
+msgstr ""
+"If checked, this factor was imported from a government "
+"database and cannot be altered."
+
+#. module: modulo_carbon_track
+msgid "Sin Conectar"
+msgstr "Not Connected"
+
+#. module: modulo_carbon_track
+msgid "Solicitud de Certificado CAE"
+msgstr "CAE Certificate Request"
+
+#. module: modulo_carbon_track
+msgid "Sostenibilidad (Carbon Track)"
+msgstr "Sustainability (Carbon Track)"
+
+#. module: modulo_carbon_track
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+
+#. module: modulo_carbon_track
+msgid "Tipo de Alcance"
+msgstr "Scope Type"
+
+#. module: modulo_carbon_track
+msgid "Tipo de Compensación"
+msgstr "Offset Type"
+
+#. module: modulo_carbon_track
+msgid "Total"
+msgstr "Total"
+
+#. module: modulo_carbon_track
+msgid "Total Alcance 1"
+msgstr "Total Scope 1"
+
+#. module: modulo_carbon_track
+msgid "Total Alcance 2"
+msgstr "Total Scope 2"
+
+#. module: modulo_carbon_track
+msgid "Total Alcance 3"
+msgstr "Total Scope 3"
+
+#. module: modulo_carbon_track
+msgid "Total CO2e Generado"
+msgstr "Total CO2e Generated"
+
+#. module: modulo_carbon_track
+msgid "Total Compensado"
+msgstr "Total Offset"
+
+#. module: modulo_carbon_track
+msgid "Total Compensado (kg)"
+msgstr "Total Offset (kg)"
+
+#. module: modulo_carbon_track
+msgid "Total Consumido (kg)"
+msgstr "Total Consumed (kg)"
+
+#. module: modulo_carbon_track
+msgid "Total Generado"
+msgstr "Total Generated"
+
+#. module: modulo_carbon_track
+msgid "Total c02E (kg)"
+msgstr "Total CO2e (kg)"
+
+#. module: modulo_carbon_track
+msgid "Type of the exception activity on record."
+msgstr "Type of the exception activity on record."
+
+#. module: modulo_carbon_track
+msgid "URL Base"
+msgstr "Base URL"
+
+#. module: modulo_carbon_track
+msgid "Unidad"
+msgstr "Unit"
+
+#. module: modulo_carbon_track
+msgid "Unidad (kWh, litros, etc.)"
+msgstr "Unit (kWh, litres, etc.)"
+
+#. module: modulo_carbon_track
+msgid "Unidad de Medida"
+msgstr "Unit of Measure"
+
+#. module: modulo_carbon_track
+msgid "Usuario (Solo Registro)"
+msgstr "User (Record Only)"
+
+#. module: modulo_carbon_track
+msgid "Validado por Ministerio"
+msgstr "Validated by Ministry"
+
+#. module: modulo_carbon_track
+msgid "Valido desde"
+msgstr "Valid from"
+
+#. module: modulo_carbon_track
+msgid "Valido hasta"
+msgstr "Valid until"
+
+#. module: modulo_carbon_track
+msgid "Valor (kg CO2e por unidad)"
+msgstr "Value (kg CO2e per unit)"
+
+#. module: modulo_carbon_track
+msgid "Volver a Borrador"
+msgstr "Reset to Draft"
+
+#. module: modulo_carbon_track
+msgid "Website Messages"
+msgstr "Website Messages"
+
+#. module: modulo_carbon_track
+msgid "Website communication history"
+msgstr "Website communication history"
+
+#. module: modulo_carbon_track
+msgid "carbon.track.actividad"
+msgstr "carbon.track.actividad"
+
+#. module: modulo_carbon_track
+msgid "https://www.miteco.gob.es/..."
+msgstr "https://www.miteco.gob.es/..."
+
+#. module: modulo_carbon_track
+msgid "kg"
+msgstr "kg"
+
+#. module: modulo_carbon_track
+msgid ""
+"kg de CO2e. \n"
+"                    El coste ambiental interno asumido es de"
+msgstr ""
+"kg of CO2e. \n"
+"                    The internal environmental cost assumed is"
+
+#. module: modulo_carbon_track
+msgid "¡Crea tu primera solicitud CAE!"
+msgstr "Create your first CAE request!"
+
+#. module: modulo_carbon_track
+msgid "¡NET ZERO!"
+msgstr "NET ZERO!"
+
+#. module: modulo_carbon_track
+msgid "¡Objetivo Net Zero Alcanzado!"
+msgstr "Net Zero Target Achieved!"
+
+#. module: modulo_carbon_track
+msgid "¿Genera Huella de Carbono?"
+msgstr "Does it Generate a Carbon Footprint?"
+
+#. module: modulo_carbon_track
+msgid "¿Net Zero Alcanzado?"
+msgstr "Net Zero Achieved?"
+
+#. module: modulo_carbon_track
+msgid "Última Sincronización"
+msgstr "Last Synchronization"

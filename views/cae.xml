@@ -1,0 +1,103 @@
+<odoo>
+    <!-- ======================== VISTA LIST ======================== -->
+    <record id="view_carbon_track_cae_list" model="ir.ui.view">
+        <field name="name">carbon.track.cae.list</field>
+        <field name="model">carbon.track.cae</field>
+        <field name="arch" type="xml">
+            <list string="Certificados CAE"
+                  decoration-info="estado == 'draft'"
+                  decoration-success="estado == 'approved'"
+                  decoration-danger="estado == 'rejected'">
+                <field name="name"/>
+                <field name="huella_id"/>
+                <field name="cups"/>
+                <field name="ahorro_kwh" string="Ahorro (kWh)"/>
+                <field name="fecha_solicitud"/>
+                <field name="estado" widget="badge"
+                       decoration-info="estado == 'draft'"
+                       decoration-warning="estado == 'sent'"
+                       decoration-success="estado == 'approved'"
+                       decoration-danger="estado == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ======================== VISTA FORM ======================== -->
+    <record id="view_carbon_track_cae_form" model="ir.ui.view">
+        <field name="name">carbon.track.cae.form</field>
+        <field name="model">carbon.track.cae</field>
+        <field name="arch" type="xml">
+            <form string="Certificado CAE">
+                <header>
+                    <!-- En Odoo 18, 'attrs' se sustituye por 'invisible' directo -->
+                    <button name="action_enviar_api"
+                            string="Enviar al Ministerio"
+                            type="object"
+                            class="btn-primary"
+                            invisible="estado != 'draft'"/>
+                    <button name="action_marcar_aprobado"
+                            string="Marcar como Aprobado"
+                            type="object"
+                            invisible="estado != 'sent'"/>
+                    <field name="estado"
+                           widget="statusbar"
+                           statusbar_visible="draft,sent,approved"/>
+                </header>
+                <sheet>
+                    <!-- En Odoo 18 se usa 'oe_title' dentro de un div estándar -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Información Base">
+                            <field name="huella_id"/>
+                            <field name="cups"/>
+                            <field name="fecha_solicitud"/>
+                        </group>
+                        <group string="Datos Técnicos">
+                            <field name="ahorro_kwh"/>
+                            <field name="cae_external_id"
+                                   invisible="estado == 'draft'"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Log de Conexión API" name="log_api">
+                            <field name="api_response_log"
+                                   readonly="1"
+                                   placeholder="Aquí aparecerá la respuesta de SICAES tras enviar la solicitud..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ======================== ACCIÓN ======================== -->
+    <record id="action_carbon_track_cae" model="ir.actions.act_window">
+        <field name="name">Certificados CAE</field>
+        <field name="res_model">carbon.track.cae</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Crea tu primera solicitud CAE!
+            </p>
+            <p>
+                Gestiona aquí las certificaciones de ahorro energético
+                enviadas al Ministerio a través de SICAES.
+            </p>
+        </field>
+    </record>
+
+    <!-- ======================== MENÚ ======================== -->
+    <menuitem id="menu_cae_main"
+              name="Certificados CAE"
+              parent="menu_carbon_track_operations"
+              action="action_carbon_track_cae"
+              sequence="150"/>
+</odoo>

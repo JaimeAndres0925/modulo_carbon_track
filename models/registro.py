@@ -10,13 +10,16 @@ class CarbonTrackRegistro(models.Model):
     
     #Relaciones del modelo de datos
     periodo_id = fields.Many2one('carbon.track.periodo', string= 'Periodo', required=True, ondelete='cascade') 
-    actividad_id = fields.Many2one('carbon.track.actividad', string='Actividad', required=True) 
+    actividad_id = fields.Many2one('carbon.track.actividad', string='Actividad', required=True)
+    cups = fields.Char(string='CUPS', help="Código Universal del Punto de Suministro") 
     
     #Datos de entrada
     fecha = fields.Date(string='Fecha', default=fields.Date.context_today) 
     cantidad = fields.Float(string='Magnitud de Consumo', required=True) 
     unidad = fields.Char(string='Unidad', related='actividad_id.unidad',readonly=True) 
-    notas =fields.Text(string='Notas') 
+    notas =fields.Text(string='Notas')
+    
+    cae_ids = fields.One2many('carbon.track.cae', 'huella_id', string='Certificados CAE') 
     
     # Campo calculado para el resultado
     valor_co2e = fields.Float(string='Total c02E (kg)', compute='_compute_co2e', store=True) 
