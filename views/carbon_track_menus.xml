@@ -91,9 +91,17 @@
     </record>
 
     <record id="action_carbon_track_reporte" model="ir.actions.act_window">
-        <field name="name">Informes de Emisiones</field>
+        <field name="name">Informes de Huella de Carbono</field>
         <field name="res_model">carbon.track.reporte</field>
-        <field name="view_mode">list,form</field> 
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Genera tu primer informe de emisiones.
+            </p>
+            <p>
+                Selecciona un periodo fiscal para consolidar todos los registros generados y dividirlos por su alcance normativo.
+            </p>
+        </field>
     </record>
 
     <record id="action_carbon_track_fuente_externa" model="ir.actions.act_window">
@@ -199,7 +207,7 @@
         <field name="name">carbon.track.actividad.form</field>
         <field name="model">carbon.track.actividad</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Actividad Emisora">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_registros" 
@@ -207,21 +215,48 @@
                                 class="oe_stat_button" 
                                 icon="fa-leaf">
                             <div class="o_stat_info">
-                                <field name="registro_count" class="o_stat_value"/>
-                                <span class="o_stat_text">Registros</span>
-                                <span class="o_stat_text">
-                                    <field name="total_co2e_acumulado" widget="float"/> kg
+                                <span class="o_stat_value">
+                                    <field name="registro_count"/> Usos
+                                </span>
+                                <span class="o_stat_text text-danger fw-bold">
+                                    <field name="total_co2e_acumulado" widget="float" digits="[16,2]"/> kg CO2
                                 </span>
                             </div>
                         </button>
                     </div>
+
+                    <widget name="web_ribbon" title="Archivada" bg_color="bg-danger" invisible="activo"/>
+
+                    <div class="oe_title">
+                        <label for="name" string="Nombre de la Actividad"/>
+                        <h1>
+                            <field name="name" placeholder="Ej. Consumo Eléctrico Oficinas"/>
+                        </h1>
+                        <h2>
+                            <field name="codigo" class="text-muted"/>
+                        </h2>
+                    </div>
+
                     <group>
-                        <field name="name"/>
-                        <field name="codigo"/>
-                        <field name="alcance_id"/>
-                        <field name="factor_emision_id"/>
-                        <field name="unidad" readonly="1" force_save="1"/>
+                        <group string="Clasificación Normativa" name="clasificacion">
+                            <field name="alcance_id" options="{'no_create': True}" widget="selection_badge"/>
+                        </group>
+                        
+                        <group string="Parámetros de Cálculo" name="calculo">
+                            <field name="factor_emision_id" options="{'no_create': True, 'no_open': False}"/>
+                            <label for="unidad" string="Unidad de Medida"/>
+                            <div class="o_row">
+                                <field name="unidad" readonly="1" force_save="1" class="oe_inline fw-bold text-primary"/>
+                            </div>
+                            <field name="activo" widget="boolean_toggle" string="En uso"/>
+                        </group>
                     </group>
+
+                    <notebook>
+                        <page string="Descripción / Notas" name="notas">
+                            <field name="description" placeholder="Detalla aquí la justificación de esta actividad o metodología..."/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -410,31 +445,179 @@
     <!--Formulario de la fuente externa-->
     <record id="view_carbon_track_fuente_externa_form" model="ir.ui.view">
         <field name="name">carbon.track.fuente.externa.form</field>
-        <field name="model">carbon.track.fuente.externa</field>
-        <field name="arch" type="xml">
-            <form>
+        <field name="model">carbon.track.fuente.externa</field> <field name="arch" type="xml">
+            <form string="Fuente de Datos">
                 <header>
-                    <button name="action_test_connection" string="1. Probar Conexión" type="object" class="oe_highlight"/>
-                    <button name="action_sync_factors" string="2. Sincronizar Catálogo" type="object" class="btn-success" invisible="estado != 'conectado'"/>
-                    <field name="estado" widget="statusbar"/>
+                    <button name="action_test_connection" 
+                            type="object" 
+                            string="Probar Conexión" 
+                            icon="fa-plug"
+                            invisible="not api_key"/> <button name="action_sync_factors" 
+                            type="object" 
+                            string="Sincronizar Catálogo" 
+                            class="oe_highlight" 
+                            icon="fa-cloud-download"
+                            invisible="not anio_filtro or not pais_filtro or cantidad_limite &lt;= 0"/>
                 </header>
                 <sheet>
-                    <widget name="web_ribbon" title="CONECTADO" bg_color="text-bg-success" invisible="estado != 'conectado'"/>
                     <div class="oe_title">
-                        <h1><field name="name"/></h1>
+                        <h1>
+                            <field name="name" placeholder="Ej: Climatiq API"/>
+                        </h1>
                     </div>
                     <group>
-                        <group string="Credenciales">
-                            <field name="api_key" password="True" placeholder="Pega aquí tu token de Climatiq..."/>
-                            <field name="base_url"/>
+                        <group string="Credenciales" name="api_config">
+                            <field name="api_key" password="True"/> 
                         </group>
-                        <group string="Información de Sincronización">
-                            <field name="ultima_sincronizacion"/>
+                        
+                        <group string="Parámetros de Búsqueda" name="api_filtros">
+                            <field name="anio_filtro" placeholder="Ej. 2024"/>
+                            <field name="pais_filtro" placeholder="Ej. ES"/>
+                            <field name="cantidad_limite"/>
                         </group>
                     </group>
-                    <div class="alert alert-info" role="alert" style="margin-top: 20px;">
-                        <i class="fa fa-info-circle"></i> <strong>Información de Auditoría:</strong> Al sincronizar, Odoo descargará los factores de emisión actualizados del GHG Protocol y de la EPA. Estos factores se bloquearán para evitar manipulaciones manuales por parte de los usuarios.
+                    
+                    <div class="alert alert-warning" role="alert" invisible="anio_filtro and pais_filtro and cantidad_limite &gt; 0">
+                        <i class="fa fa-exclamation-triangle"/> 
+                        Debes rellenar el Año, el País y la Cantidad para que aparezca el botón de Sincronizar.
                     </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_emision_form" model="ir.ui.view">
+        <field name="name">carbon.track.emision.form</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <form string="Factor de Emisión">
+                <sheet>
+                    <widget name="web_ribbon" title="Oficial" bg_color="bg-info" invisible="not es_oficial"/>
+
+                    <div class="oe_title">
+                        <label for="name" string="Nombre del Factor"/>
+                        <h1>
+                            <field name="name" placeholder="Ej: Electricidad - Mix 2024"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Origen y Clasificación">
+                            <field name="fuente_origen"/>
+                            <field name="region"/>
+                            <field name="anio"/>
+                            <field name="categoria"/>
+                            <field name="fuente_externa_id" options="{'no_create': True}"/>
+                        </group>
+
+                        <group string="Datos de Cálculo">
+                            <label for="valor"/>
+                            <div class="o_row">
+                                <field name="valor" class="oe_inline fw-bold"/>
+                                <field name="unidad" class="oe_inline" placeholder="Unidad"/>
+                            </div>
+                            <field name="es_oficial" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Validez y Bibliografía" name="validez">
+                            <group>
+                                <group string="Periodo de Validez">
+                                    <field name="valido_desde"/>
+                                    <field name="valido_hasta"/>
+                                </group>
+                                <group string="Referencias">
+                                    <field name="fuentes" placeholder="Enlaces o referencias bibliográficas..."/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_emision_list" model="ir.ui.view">
+        <field name="name">carbon.track.emision.list</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <list string="Factores de Emisión" decoration-info="es_oficial == True">
+                <field name="name"/>
+                <field name="categoria" optional="show"/>
+                <field name="region"/>
+                <field name="anio"/>
+                <field name="valor" sum="Total"/>
+                <field name="unidad"/>
+                <field name="fuente_origen" optional="hide"/>
+                <field name="es_oficial" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_emision_search" model="ir.ui.view">
+        <field name="name">carbon.track.emision.search</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="categoria"/>
+                <field name="region"/>
+                <field name="fuente_origen"/>
+                
+                <filter string="Oficiales" name="official" domain="[('es_oficial', '=', True)]"/>
+                <filter string="Manuales" name="manual" domain="[('es_oficial', '=', False)]"/>
+                <separator/>
+                <filter string="Vigentes" name="current" domain="[('valido_hasta', '>=', context_today())]"/>
+
+                <group expand="0" string="Agrupar por...">
+                    <filter string="Categoría" name="group_categoria" context="{'group_by':'categoria'}"/>
+                    <filter string="Región" name="group_region" context="{'group_by':'region'}"/>
+                    <filter string="Año" name="group_anio" context="{'group_by':'anio'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_form" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.form</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+            <form string="Informe de Emisiones">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre del Informe"/>
+                        <h1>
+                            <field name="name" placeholder="Selecciona un periodo para generar..."/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Datos del Informe" name="datos_principales">
+                            <field name="periodo_id" options="{'no_create': True, 'no_open': False}"/>
+                            <field name="fecha_de_generacion" readonly="1"/>
+                        </group>
+                        
+                        <group string="Desglose por Alcances" name="totales_alcance">
+                            <label for="total_alcance1" string="Alcance 1 (Directas)"/>
+                            <div class="o_row">
+                                <field name="total_alcance1" readonly="1" class="oe_inline fw-bold text-danger"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                            
+                            <label for="total_alcance2" string="Alcance 2 (Indirectas Energía)"/>
+                            <div class="o_row">
+                                <field name="total_alcance2" readonly="1" class="oe_inline fw-bold text-warning"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                            
+                            <label for="total_alcance3" string="Alcance 3 (Otras Indirectas)"/>
+                            <div class="o_row">
+                                <field name="total_alcance3" readonly="1" class="oe_inline fw-bold text-info"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>

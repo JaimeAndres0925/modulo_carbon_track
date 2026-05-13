@@ -12,6 +12,7 @@ class CarbonTrackPeriodo(models.Model):
     fecha_fin = fields.Date(string='Fecha de Fin', required=True, default=fields.Date.today)
     
     compensacion_ids = fields.One2many('carbon.track.compensacion', 'periodo_id', string='Proyectos de Compensación')
+    registro_ids = fields.One2many('carbon.track.registro', 'periodo_id', string='Registros de Consumo')
 
     # Campos Calculados
     total_co2e_consumido = fields.Float(compute='_compute_balances', string='Total Consumido (kg)', store=True)
@@ -41,7 +42,7 @@ class CarbonTrackPeriodo(models.Model):
             record.estado = 'borrador'
 
     # Metodo que recalcula el valor de kg/CO2 si añadimos compesaciones
-    @api.depends('compensacion_ids.co2e_compensado') 
+    @api.depends('compensacion_ids.co2e_compensado','registro_ids.valor_co2e') 
     def _compute_balances(self):
         for periodo in self:
             # Calculamos Consumo

@@ -15,6 +15,11 @@ class CarbonTrackFuenteExterna(models.Model):
         ('conectado', 'Conexión Exitosa'),
         ('error', 'Error de Conexión')
     ], string='Estado', default='borrador', readonly=True)
+    
+    # Campos para filtrar la API
+    anio_filtro = fields.Char(string='Año de Publicación', help="Ej: 2023, 2024")
+    pais_filtro = fields.Char(string='Código de País (ISO 2)', help="Ej: ES para España, US para Estados Unidos")
+    cantidad_limite = fields.Integer(string='Cantidad a Sincronizar', default=50, help="Límite de resultados devueltos por la API")
 
     ultima_sincronizacion = fields.Datetime(string='Última Sincronización', readonly=True)
 
@@ -66,8 +71,9 @@ class CarbonTrackFuenteExterna(models.Model):
         anio_actual = fields.Date.today().year
 
         parametros_busqueda = {
-            'results_per_page': 30,     
-            'region': 'ES',             
+            'year': self.anio_filtro,
+            'region': self.pais_filtro,
+            'results_per_page': self.cantidad_limite,           
             'data_version': '^5'
         }
 
@@ -144,12 +150,19 @@ class CarbonTrackFuenteExterna(models.Model):
                     fecha_inicio = f"{anio}-01-01"
                     fecha_fin = f"{anio}-12-31"
                     cat_api = item.get('category', 'General')
+                    api_region = item.get('region', 'Global')
+                    api_year = str(item.get('year', 'N/A'))
+                    api_source = item.get('source', 'Desconocida')
+                    
                     
                     self.env['carbon.track.emision'].create({
                         'name': nombre_completo,
                         'valor': valor_co2e,
                         'fuentes': dataset_info,
                         'unidad': unidad_final,
+                        'region': api_region,
+                        'anio': api_year,
+                        'fuente_origen': api_source,
                         'es_oficial': True,
                         'categoria': cat_api,
                         'valido_desde': fecha_inicio,
