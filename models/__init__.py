@@ -5,6 +5,7 @@ from . import actividad
 from . import registro
 from . import reporte
 from . import fuente_externa  
-from . import hr_expense_inheritance
+from . import hr_expense_herencia
 from . import compensacion
 from . import cae
+from . import account_herencia
