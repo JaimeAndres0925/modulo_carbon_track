@@ -187,3 +187,17 @@ class CarbonTrackFuenteExterna(models.Model):
             
         except requests.exceptions.RequestException as e:
             raise UserError(f"Error de red/conexión: {str(e)}")
+
+    @api.model
+    def _cron_sync_api_factors(self):
+        """Busca fuentes configuradas y actualiza el catálogo"""
+        import logging
+        _logger = logging.getLogger(__name__)
+        
+        fuentes = self.search([('api_key', '!=', False)])
+        for fuente in fuentes:
+            try:
+                fuente.action_sync_factors()
+                _logger.info(f"Cron: Sincronización exitosa para {fuente.name}")
+            except Exception as e:
+                _logger.error(f"Cron: Error al sincronizar factores: {str(e)}")

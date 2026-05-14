@@ -1,7 +1,17 @@
-# models/carbon_track_cae.py
-
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import random
+
+class SICAESApiClient:
+    def __init__(self):
+        self.url_base = "https://api.simulada.ministerio.es/v1" 
+
+    def enviar_cae(self, data):
+        # Simulación de respuesta exitosa
+        return {
+            "status": "success", 
+            "id_cae": f"SICAES-{random.randint(1000, 9999)}"
+        }
 
 class CarbonTrackCae(models.Model):
     _name = 'carbon.track.cae'
@@ -20,11 +30,6 @@ class CarbonTrackCae(models.Model):
         required=True
     )
 
-    # Si quieres sacar el CUPS desde el consumo vinculado al registro,
-    # hazlo con related (ajusta la ruta al campo real de tu modelo):
-    # cups = fields.Char(related='huella_id.consumo_id.cups', string='CUPS', store=True)
-    
-    # O simplemente déjalo como campo manual:
     cups = fields.Char(
         string='CUPS',
         help="Código Universal del Punto de Suministro",
@@ -46,30 +51,37 @@ class CarbonTrackCae(models.Model):
     
     def action_marcar_aprobado(self):
         for record in self:
-                record.write({
+            record.write({
                 'estado': 'approved',
-                'api_response_log': (
-                    record.api_response_log or ''
-                ) + f"\n[SIMULACIÓN] Certificado {record.cae_external_id} validado por el Ministerio."
+                'api_response_log': (record.api_response_log or '') + \
+                    f"\n[SIMULACIÓN] Certificado {record.cae_external_id} validado por el Ministerio."
             })
 
     @api.model
     def create(self, vals):
         if vals.get('name', 'Nuevo') == 'Nuevo':
             vals['name'] = self.env['ir.sequence'].next_by_code('carbon.track.cae') or 'CAE/NEW'
-        return super().create(vals)
+        return super(CarbonTrackCae, self).create(vals)
 
     def action_enviar_api(self):
-        """Simulación de conexión con SICAES para el TFG"""
+        client = SICAESApiClient()
         for record in self:
-            id_simulado = f"SICAES-{random.randint(1000, 9999)}"
-            record.write({
-                'estado': 'sent',
-                'cae_external_id': id_simulado,
-                'api_response_log': (
-                    f"[SIMULACIÓN TFG] Conexión exitosa con SICAES.\n"
-                    f"Certificado registrado con ID: {id_simulado}\n"
-                    f"CUPS: {record.cups} | Ahorro: {record.ahorro_kwh} kWh"
-                ),
-            })
-    
+            data = {
+                'cups': record.cups,
+                'kwh': record.ahorro_kwh,
+                'ref': record.name
+            }
+            response = client.enviar_cae(data) 
+        
+            if response.get('status') == 'success':
+                record.write({
+                    'estado': 'sent',
+                    'cae_external_id': response['id_cae'],
+                    'api_response_log': f"[CONEXIÓN API EXITOSA]\nID: {response['id_cae']}\nCUPS enviado: {record.cups}"
+                })
+
+    @api.constrains('cups')
+    def _check_cups_format(self):
+        for record in self:
+            if record.cups and len(record.cups) not in [20, 22]:
+                raise ValidationError("El CUPS debe tener 20 o 22 caracteres (Formato Español).")

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="ir_cron_vigilante_presupuesto" model="ir.cron">
+            <field name="name">Carbon Track: Vigilar Presupuesto Net Zero</field>
+            <field name="model_id" search="[('model', '=', 'carbon.track.periodo')]"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_vigilante_presupuesto()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ir_cron_sync_carbon_factors" model="ir.cron">
+            <field name="name">Carbon Track: Sincronizar Factores Climatiq</field>
+            <field name="model_id" search="[('model', '=', 'carbon.track.fuente.externa')]"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_api_factors()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

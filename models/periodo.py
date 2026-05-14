@@ -90,3 +90,31 @@ class CarbonTrackPeriodo(models.Model):
             'target': 'new',
             'context': ctx,
         }
+    alerta_presupuesto_enviada = fields.Boolean(string='Alerta de Presupuesto Enviada', default=False, copy=False)
+
+    @api.model
+    def _cron_vigilante_presupuesto(self):
+        """Revisa todos los periodos y avisa si superan el 90% del presupuesto"""
+        import logging
+        _logger = logging.getLogger(__name__)
+        
+        periodos = self.search([('alerta_presupuesto_enviada', '=', False)])
+        
+        for periodo in periodos:
+            # Si el porcentaje supera el 90% y tiene presupuesto asignado
+            if periodo.presupuesto_co2e > 0 and periodo.porcentaje_consumido >= 90.0:
+                
+                # Dejamos rastro en el Log del servidor
+                _logger.warning(f"ALERTA TFG: El periodo '{periodo.name}' ha consumido el {round(periodo.porcentaje_consumido, 1)}% de su presupuesto de Carbono.")
+                
+                # Si tienes activadas las notificaciones de Odoo (mail.thread), crea un aviso al usuario
+                if hasattr(periodo, 'activity_schedule'):
+                    periodo.activity_schedule(
+                        'mail.mail_activity_data_warning',
+                        summary='¡Alerta Crítica de Emisiones!',
+                        note=f'El periodo ha superado la barrera del 90% de su límite de {periodo.presupuesto_co2e} kg.',
+                        user_id=periodo.create_uid.id
+                    )
+                
+                # Marcamos la casilla para no volver a avisar mañana del mismo periodo
+                periodo.alerta_presupuesto_enviada = True

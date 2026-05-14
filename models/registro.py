@@ -19,8 +19,13 @@ class CarbonTrackRegistro(models.Model):
     unidad = fields.Char(string='Unidad', related='actividad_id.unidad',readonly=True) 
     notas =fields.Text(string='Notas')
     
-    cae_ids = fields.One2many('carbon.track.cae', 'huella_id', string='Certificados CAE') 
+    cae_ids = fields.One2many('carbon.track.cae', 'huella_id', string='Certificados CAE')
     
+    cae_count = fields.Integer(
+        string='Número de CAEs', 
+        compute='_compute_cae_count'
+    )
+     
     # Campo calculado para el resultado
     valor_co2e = fields.Float(string='Total c02E (kg)', compute='_compute_co2e', store=True) 
     
@@ -56,6 +61,27 @@ class CarbonTrackRegistro(models.Model):
                 # Pedimos a Odoo el siguiente número de nuestra secuencia
                 vals['name'] = self.env['ir.sequence'].next_by_code('carbon.track.registro.secuencia') or 'Nuevo'
         return super().create(vals_list)
+
+    
+    @api.depends('cae_ids')
+    def _compute_cae_count(self):
+        for record in self:
+            record.cae_count = len(record.cae_ids)
+
+    def action_view_caes(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Certificados CAE Relacionados',
+            'res_model': 'carbon.track.cae',
+            'view_mode': 'list,form',
+            'domain': [('huella_id', '=', self.id)], # Filtra para ver solo los de este registro
+            'context': {
+                'default_huella_id': self.id,
+                'default_cups': self.cups,
+                'default_ahorro_kwh': self.cantidad * 0.1, # Ejemplo: ahorro estimado 10%
+            },
+        }
 
     
     

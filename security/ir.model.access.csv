@@ -15,3 +15,4 @@ access_fuente_externa_manager,fuente_externa.manager,model_carbon_track_fuente_e
 access_registro_manager,registro.manager,model_carbon_track_registro,group_carbon_track_manager,1,1,1,1
 access_reporte_manager,reporte.manager,model_carbon_track_reporte,group_carbon_track_manager,1,1,1,1
 access_compensacion_manager,compensacion.manager,model_carbon_track_compensacion,group_carbon_track_manager,1,1,1,1
+access_cae_manager,cae.manager,model_carbon_track_cae,group_carbon_track_manager,1,1,1,1
