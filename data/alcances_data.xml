@@ -5,7 +5,7 @@
         <record id="alcance_1_default" model="carbon.track.alcance">
             <field name="name">Alcance 1</field>
             <field name="descripcion">Emisiones Directas de Gases de Efecto Invernadero (GEI) controladas por la empresa.</field>
-            <field name="enlace_guia">https://www.miteco.gob.es/es/cambio-climatico/temas/mitigacion-politicas-y-medidas/alcance1.html</field>
+            <field name="enlace_guia">https://ghgprotocol.org/sites/default/files/standards/protocolo_spanish.pdf</field>
             <field name="imagen" type="base64" file="modulo_carbon_track/static/src/img/alcance_1.png"/>
             <field name="documento_apoyo" type="base64" file="modulo_carbon_track/data/alcances_pdf/guia_alcance_1.pdf"/>
             <field name="documento_nombre">alcance_1_guia.pdf</field>
@@ -14,7 +14,7 @@
         <record id="alcance_2_default" model="carbon.track.alcance">
             <field name="name">Alcance 2</field>
             <field name="descripcion">Emisiones Indirectas asociadas a la generación de electricidad o energía térmica adquirida.</field>
-            <field name="enlace_guia">https://www.miteco.gob.es/es/cambio-climatico/temas/mitigacion-politicas-y-medidas/alcance2.html</field>
+            <field name="enlace_guia">https://ghgprotocol.org/sites/default/files/standards/protocolo_spanish.pdf</field>
             <field name="imagen" type="base64" file="modulo_carbon_track/static/src/img/alcance_2.png"/>
             <field name="documento_apoyo" type="base64" file="modulo_carbon_track/data/alcances_pdf/guia_alcance_2.pdf"/>
             <field name="documento_nombre">alcance_2_guia.pdf</field>
@@ -23,7 +23,7 @@
         <record id="alcance_3_default" model="carbon.track.alcance">
             <field name="name">Alcance 3</field>
             <field name="descripcion">Otras Emisiones Indirectas que ocurren en la cadena de valor (viajes, proveedores, residuos).</field>
-            <field name="enlace_guia">https://www.miteco.gob.es/es/cambio-climatico/temas/mitigacion-politicas-y-medidas/alcance3.html</field>
+            <field name="enlace_guia">https://ghgprotocol.org/sites/default/files/standards/protocolo_spanish.pdf</field>
             <field name="imagen" type="base64" file="modulo_carbon_track/static/src/img/alcance_3.png"/>
             <field name="documento_apoyo" type="base64" file="modulo_carbon_track/data/alcances_pdf/guia_alcance_3.pdf"/>
             <field name="documento_nombre">alcance_3_guia.pdf</field>

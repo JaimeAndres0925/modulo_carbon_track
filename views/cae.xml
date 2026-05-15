@@ -29,7 +29,6 @@
         <field name="arch" type="xml">
             <form string="Certificado CAE">
                 <header>
-                    <!-- En Odoo 18, 'attrs' se sustituye por 'invisible' directo -->
                     <button name="action_enviar_api"
                             string="Enviar al Ministerio"
                             type="object"
@@ -44,7 +43,6 @@
                            statusbar_visible="draft,sent,approved"/>
                 </header>
                 <sheet>
-                    <!-- En Odoo 18 se usa 'oe_title' dentro de un div estándar -->
                     <div class="oe_title">
                         <h1>
                             <field name="name" readonly="1"/>
@@ -53,12 +51,12 @@
 
                     <group>
                         <group string="Información Base">
-                            <field name="huella_id"/>
-                            <field name="cups"/>
+                            <field name="huella_id" readonly="estado in ['sent', 'approved', 'rejected']"/>
+                            <field name="cups" readonly="estado in ['sent', 'approved', 'rejected']"/>
                             <field name="fecha_solicitud"/>
                         </group>
                         <group string="Datos Técnicos">
-                            <field name="ahorro_kwh"/>
+                            <field name="ahorro_kwh" readonly="estado in ['sent', 'approved', 'rejected']"/>
                             <field name="cae_external_id"
                                    invisible="estado == 'draft'"/>
                         </group>

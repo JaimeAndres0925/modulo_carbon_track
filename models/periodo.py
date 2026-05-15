@@ -3,6 +3,7 @@ from odoo import models, fields, api
 class CarbonTrackPeriodo(models.Model):
     _name = 'carbon.track.periodo'
     _description = 'Periodos de Seguimiento'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
 
     name = fields.Char(string='Nombre', required=True)
@@ -105,16 +106,26 @@ class CarbonTrackPeriodo(models.Model):
             if periodo.presupuesto_co2e > 0 and periodo.porcentaje_consumido >= 90.0:
                 
                 # Dejamos rastro en el Log del servidor
-                _logger.warning(f"ALERTA TFG: El periodo '{periodo.name}' ha consumido el {round(periodo.porcentaje_consumido, 1)}% de su presupuesto de Carbono.")
+                _logger.warning(f"ALERTA: El periodo '{periodo.name}' ha consumido el {round(periodo.porcentaje_consumido, 1)}% de su presupuesto de Carbono.")
                 
-                # Si tienes activadas las notificaciones de Odoo (mail.thread), crea un aviso al usuario
-                if hasattr(periodo, 'activity_schedule'):
-                    periodo.activity_schedule(
-                        'mail.mail_activity_data_warning',
-                        summary='¡Alerta Crítica de Emisiones!',
-                        note=f'El periodo ha superado la barrera del 90% de su límite de {periodo.presupuesto_co2e} kg.',
-                        user_id=periodo.create_uid.id
-                    )
-                
+                periodo.message_post(
+                body=f"<b>ALERTA DE SISTEMA:</b> Se ha alcanzado el {round(periodo.porcentaje_consumido, 1)}% del presupuesto de carbono.",
+                subtype_xmlid="mail.mt_comment"
+                )
+                periodo.activity_schedule(
+                'mail.mail_activity_data_warning',
+                summary='Presupuesto de Carbono casi agotado',
+                note=f'El sistema ha detectado un consumo crítico.',
+                user_id=periodo.create_uid.id or self.env.user.id
+                )
+                self.env['mail.activity'].create({
+                'res_id': periodo.id,
+                'res_model_id': self.env['ir.model']._get(periodo._name).id,
+                'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id, 
+                'summary': 'Límite de Carbono Crítico',
+                'note': f'El periodo ha superado el 90% de su presupuesto ({periodo.presupuesto_co2e} kg).',
+                'user_id': periodo.create_uid.id or self.env.user.id,
+                'date_deadline': fields.Date.today(),
+                })
                 # Marcamos la casilla para no volver a avisar mañana del mismo periodo
                 periodo.alerta_presupuesto_enviada = True

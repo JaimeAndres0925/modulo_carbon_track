@@ -376,6 +376,7 @@
                         <group string="Control de Presupuesto">
                             <field name="presupuesto_co2e"/>
                             <field name="porcentaje_consumido" widget="progressbar"/>
+                            <field name="alerta_presupuesto_enviada"/>
                             <field name="es_net_zero" invisible="1"/>
                         </group>
                     </group>
@@ -555,7 +556,7 @@
                 <field name="categoria" optional="show"/>
                 <field name="region"/>
                 <field name="anio"/>
-                <field name="valor" sum="Total"/>
+                <field name="valor"/>
                 <field name="unidad"/>
                 <field name="fuente_origen" optional="hide"/>
                 <field name="es_oficial" widget="boolean_toggle" optional="show"/>
@@ -609,7 +610,7 @@
                         <group string="Desglose por Alcances" name="totales_alcance">
                             <label for="total_alcance1" string="Alcance 1 (Directas)"/>
                             <div class="o_row">
-                                <field name="total_alcance1" readonly="1" class="oe_inline fw-bold text-danger"/>
+                                <field name="total_alcance1" readonly="1" class="oe_inline fw-bold text-success"/>
                                 <span class="text-muted">kg CO2e</span>
                             </div>
                             

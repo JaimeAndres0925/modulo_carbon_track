@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import requests
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class CarbonTrackFuenteExterna(models.Model):
     _name = 'carbon.track.fuente.externa'
@@ -190,14 +193,17 @@ class CarbonTrackFuenteExterna(models.Model):
 
     @api.model
     def _cron_sync_api_factors(self):
-        """Busca fuentes configuradas y actualiza el catálogo"""
-        import logging
-        _logger = logging.getLogger(__name__)
+        fuentes = self.search([
+            ('api_key', '!=', False),
+            ('anio_filtro', '!=', False),
+            ('pais_filtro', '!=', False)
+        ])
         
-        fuentes = self.search([('api_key', '!=', False)])
         for fuente in fuentes:
             try:
+                _logger.info(f"INICIO CRON: Sincronizando fuente {fuente.name}")
                 fuente.action_sync_factors()
-                _logger.info(f"Cron: Sincronización exitosa para {fuente.name}")
+                _logger.info(f"ÉXITO CRON: Fuente {fuente.name} actualizada correctamente.")
             except Exception as e:
-                _logger.error(f"Cron: Error al sincronizar factores: {str(e)}")
+                _logger.error(f"FALLO CRON: Error en fuente {fuente.name}: {str(e)}")
+                fuente.write({'estado': 'error'})

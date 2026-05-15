@@ -32,8 +32,10 @@ class CarbonTrackCae(models.Model):
 
     cups = fields.Char(
         string='CUPS',
-        help="Código Universal del Punto de Suministro",
-        required=True
+        related='huella_id.cups',
+        readonly=True,            
+        store=True,               
+        help="Código Universal del Punto de Suministro (traído del registro de consumo)"
     )
 
     ahorro_kwh = fields.Float(string='Ahorro Anual (kWh)', required=True)
