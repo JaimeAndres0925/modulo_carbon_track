@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cae_oficial_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, sans-serif; color: #333333; font-size: 13px;">
+                        
+                        <div class="text-center" style="border-bottom: 2px solid #004d40; padding-bottom: 10px; margin-bottom: 30px;">
+                            <h2 style="color: #004d40; font-weight: bold; text-transform: uppercase;">
+                                Solicitud de Emisión de Certificados de Ahorro Energético
+                            </h2>
+                            <h4 style="color: #555555;">Ministerio para la Transición Ecológica y el Reto Demográfico</h4>
+                            <p class="text-muted" style="margin-top: 5px;">
+                                <strong>Identificador de Justificación:</strong> <span t-field="o.name"/>
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <h5 style="background-color: #004d40; color: white; padding: 5px 10px; font-weight: bold;">
+                                1. DATOS DEL SOLICITANTE (SUJETO OBLIGADO / COLECTIVO)
+                            </h5>
+                            <table class="table table-bordered" style="margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 25%; background-color: #f9f9f9;"><strong>Razón Social:</strong></td>
+                                    <td style="width: 75%;"><span t-field="o.env.company.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f9f9f9;"><strong>NIF/CIF:</strong></td>
+                                    <td><span t-field="o.env.company.vat"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f9f9f9;"><strong>Domicilio Fiscal:</strong></td>
+                                    <td>
+                                        <span t-field="o.env.company.street"/>, 
+                                        <span t-field="o.env.company.zip"/> - 
+                                        <span t-field="o.env.company.city"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <h5 style="background-color: #004d40; color: white; padding: 5px 10px; font-weight: bold;">
+                                2. TRAZABILIDAD Y VALIDACIÓN DEL EXPEDIENTE
+                            </h5>
+                            <table class="table table-bordered" style="margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 25%; background-color: #f9f9f9;"><strong>Código Certificado:</strong></td>
+                                    <td style="width: 75%;"><span t-field="o.cae_id.codigo"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f9f9f9;"><strong>Fecha de Cierre:</strong></td>
+                                    <td><span t-field="o.fecha_generacion" t-options='{"widget": "date"}'/></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #f9f9f9;"><strong>Auditor Validador:</strong></td>
+                                    <td><span t-field="o.validador_id.name"/></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="margin-bottom: 35px;">
+                            <h5 style="background-color: #004d40; color: white; padding: 5px 10px; font-weight: bold;">
+                                3. CUANTIFICACIÓN DEL AHORRO Y EQUIVALENCIA EN EMISIONES
+                            </h5>
+                            <p style="margin-top: 10px;">
+                                En base a las actuaciones energéticas registradas en el sistema, se certifican los siguientes valores de ahorro de energía final según las fichas técnicas del MITECO aplicadas:
+                            </p>
+                            <table class="table table-striped" style="border: 1px solid #cccccc;">
+                                <thead>
+                                    <tr style="background-color: #e0f2f1; color: #004d40;">
+                                        <th style="width: 60%;">Concepto Técnico Evaluado</th>
+                                        <th class="text-right" style="width: 20%;">Cantidad</th>
+                                        <th style="width: 20%;">Unidad MITECO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Ahorro Anual de Energía Final Conseguido</strong></td>
+                                        <td class="text-right"><span t-field="o.consumo_ahorrado" t-options='{"widget": "float", "precision": 2}'/></td>
+                                        <td>kWh / año</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Gases de Efecto Invernadero Evitados (Mitigación)</strong></td>
+                                        <td class="text-right" style="color: #2e7d32; font-weight: bold;">
+                                            <span t-field="o.co2_evitado" t-options='{"widget": "float", "precision": 2}'/>
+                                        </td>
+                                        <td>kg CO2e / año</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 60px; page-break-inside: avoid;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Generado de forma electrónica en Odoo ERP.</p>
+                                    <p>Fecha de emisión: <span t-esc="context_today().strftime('%d/%m/%Y')"/></p>
+                                </div>
+                                <div class="col-6 text-center" style="margin-top: 20px;">
+                                    <p style="margin-bottom: 50px;"><strong>Firma y Sello del Validador Autorizado:</strong></p>
+                                    <div style="border-bottom: 1px dashed #666666; width: 80%; margin: 0 auto;"/>
+                                    <p class="text-muted" style="font-size: 11px; margin-top: 5px;">
+                                        <span t-field="o.validador_id.name"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

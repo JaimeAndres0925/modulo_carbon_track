@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 import random
 
 class SICAESApiClient:
@@ -59,11 +60,12 @@ class CarbonTrackCae(models.Model):
                     f"\n[SIMULACIÓN] Certificado {record.cae_external_id} validado por el Ministerio."
             })
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', 'Nuevo') == 'Nuevo':
-            vals['name'] = self.env['ir.sequence'].next_by_code('carbon.track.cae') or 'CAE/NEW'
-        return super(CarbonTrackCae, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Nuevo') == 'Nuevo':
+                vals['name'] = self.env['ir.sequence'].next_by_code('carbon.track.cae') or 'CAE/NEW'
+        return super(CarbonTrackCae, self).create(vals_list)
 
     def action_enviar_api(self):
         client = SICAESApiClient()
@@ -87,3 +89,20 @@ class CarbonTrackCae(models.Model):
         for record in self:
             if record.cups and len(record.cups) not in [20, 22]:
                 raise ValidationError("El CUPS debe tener 20 o 22 caracteres (Formato Español).")
+    
+    def action_marcar_aprobado(self):
+        for reg in self:
+            if reg.estado == 'approved':
+                continue # Si ya está aprobado, no hacemos nada
+            
+            # 1. Cambiamos el estado a aprobado (como tú lo tienes)
+            reg.estado = 'approved'
+            
+            # 2. CREACIÓN AUTOMÁTICA DEL INFORME
+            self.env['carbon.track.reporte.cae'].with_context(desde_cae=True).create({
+                'name': f"Informe Oficial - {reg.name}",
+                'cae_id': reg.id,
+                'validador_id': self.env.user.id,
+                'consumo_ahorrado': reg.ahorro_kwh,
+                'co2_evitado': 0.0, 
+            })

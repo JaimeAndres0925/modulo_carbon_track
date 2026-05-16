@@ -12,7 +12,7 @@
                 <field name="descripcion"/>
                 <field name="imagen"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click d-flex flex-column p-3 border-start border-4 border-info shadow-sm">
                             <div class="d-flex align-items-center mb-2">
                                 <div class="me-3">
@@ -60,7 +60,7 @@
                         </group>
                     </group>
                     <div class="alert alert-warning" role="alert" style="margin-top: 20px;" invisible="not enlace_guia">
-                        <i class="fa fa-external-link"/>
+                        <i class="fa fa-external-link" title="Enlace a documentación externa" aria-label="Enlace a documentación externa"/>
                         <strong>Nota para el usuario:</strong> Para una comprensión profunda, consulte la documentación oficial en el enlace superior.
                     </div>
                 </sheet>
@@ -263,17 +263,18 @@
         <field name="arch" type="xml">
             <form string="Fuente de Datos">
                 <header>
-                    <button name="action_test_connection"
-                            type="object"
-                            string="Probar Conexión"
-                            icon="fa-plug"
+                    <button name="action_test_connection" 
+                            type="object" 
+                            string="Probar Conexión" 
+                            icon="fa-plug" 
                             invisible="not api_key"/>
-                    <button name="action_sync_factors"
-                            type="object"
-                            string="Sincronizar Catálogo"
-                            class="oe_highlight"
-                            icon="fa-cloud-download"
-                            invisible="not anio_filtro or not pais_filtro or cantidad_limite &lt;= 0"/>
+
+                    <button name="action_test_connection" 
+                            type="object" 
+                            string="Probar Conexión" 
+                            icon="fa-plug" 
+                            invisible="not api_key"
+                            groups="modulo_carbon_track.group_carbon_track_manager"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

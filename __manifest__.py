@@ -25,8 +25,10 @@
         'data/secuencias.xml',
         'data/alcances_data.xml',
         'data/crons.xml',
-        'report/carbon_track_report_template.xml',
-        'report/carbon_track_report_action.xml',
+        'report/carbon_track_report_periodo_template.xml',
+        'report/carbon_track_report_periodo_action.xml',
+        'report/carbon_track_report_cae_template.xml',
+        'report/carbon_track_report_cae_action.xml',
     ],
     
     'assets': {

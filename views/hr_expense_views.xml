@@ -8,8 +8,10 @@
             
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <field name="es_gasto_contaminante" invisible="1"/>
-                <field name="currency_id" invisible="1"/> <div class="alert alert-warning" role="alert" invisible="not es_gasto_contaminante">
-                    <i class="fa fa-leaf"/> <strong>Impacto Ambiental Estimado:</strong> 
+                <field name="currency_id" invisible="1"/> 
+                <div class="alert alert-warning" role="alert" invisible="not es_gasto_contaminante">
+                    <i class="fa fa-leaf" title="Huella de Carbono" aria-label="Huella de Carbono"/> 
+                    <strong>Impacto Ambiental Estimado:</strong> 
                     Este gasto generará <field name="co2e_estimado" readonly="1" class="fw-bold"/> kg de CO2e. 
                     El coste ambiental interno asumido es de <field name="coste_ambiental" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}" class="fw-bold"/>.
                 </div>
@@ -50,7 +52,8 @@
                 <field name="requiere_eco_aprobacion" invisible="1"/>
                 
                 <div class="alert alert-danger" role="alert" invisible="not requiere_eco_aprobacion">
-                    <i class="fa fa-exclamation-triangle"/> <strong>¡Atención! Política de Sostenibilidad:</strong> 
+                    <i class="fa fa-exclamation-triangle" title="Alerta de Sostenibilidad" aria-label="Alerta de Sostenibilidad"/> 
+                    <strong>¡Atención! Política de Sostenibilidad:</strong> 
                     Este informe de gastos contiene partidas que superan los 150 kg de CO2e. 
                     Requiere justificación y aprobación excepcional por parte de Sostenibilidad.
                 </div>

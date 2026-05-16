@@ -44,9 +44,10 @@ class CarbonTrackActividad(models.Model):
         else:
             self.unidad = False
             
-    @api.model
-    def create(self, vals):
-        if vals.get('codigo', 'Nuevo') == 'Nuevo':
-            vals['codigo'] = self.env['ir.sequence'].next_by_code('carbon.track.actividad') or 'Nuevo'
-        return super(CarbonTrackActividad, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('codigo', 'Nuevo') == 'Nuevo':
+                vals['codigo'] = self.env['ir.sequence'].next_by_code('carbon.track.actividad') or 'Nuevo'
+        return super(CarbonTrackActividad, self).create(vals_list)
     

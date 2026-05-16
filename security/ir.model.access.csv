@@ -16,3 +16,4 @@ access_registro_manager,registro.manager,model_carbon_track_registro,group_carbo
 access_reporte_manager,reporte.manager,model_carbon_track_reporte,group_carbon_track_manager,1,1,1,1
 access_compensacion_manager,compensacion.manager,model_carbon_track_compensacion,group_carbon_track_manager,1,1,1,1
 access_cae_manager,cae.manager,model_carbon_track_cae,group_carbon_track_manager,1,1,1,1
+access_carbon_track_reporte_cae_manager,reporte.cae.manager,model_carbon_track_reporte_cae,group_carbon_track_manager,1,1,1,1

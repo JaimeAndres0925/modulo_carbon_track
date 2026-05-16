@@ -23,8 +23,9 @@ class CarbonTrackCompensacion(models.Model):
     co2e_compensado = fields.Float(string='CO2e Compensado (kg)', required=True)
     notas = fields.Text(string='Notas o URL del Certificado')
     
-    @api.model
-    def create(self, vals):
-        if vals.get('codigo', 'Nuevo') == 'Nuevo':
-            vals['codigo'] = self.env['ir.sequence'].next_by_code('carbon.track.compensacion') or 'Nuevo'
-        return super(CarbonTrackCompensacion, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('codigo', 'Nuevo') == 'Nuevo':
+                vals['codigo'] = self.env['ir.sequence'].next_by_code('carbon.track.compensacion') or 'Nuevo'
+        return super(CarbonTrackCompensacion, self).create(vals_list)

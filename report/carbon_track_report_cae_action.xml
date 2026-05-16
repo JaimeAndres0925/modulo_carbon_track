@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_cae_solicitud" model="ir.actions.report">
+        <field name="name">Certificado Oficial CAE (MITECO)</field>
+        <field name="model">carbon.track.reporte.cae</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">modulo_carbon_track.report_cae_oficial_template</field>
+        <field name="report_file">modulo_carbon_track.report_cae_oficial_template</field>
+        <field name="print_report_name">'Informe_CAE_%s' % (object.name.replace(' ', '_'))</field>
+        <field name="binding_model_id" ref="model_carbon_track_reporte_cae"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

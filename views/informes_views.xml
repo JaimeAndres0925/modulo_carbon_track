@@ -117,6 +117,69 @@
         </field>
     </record>
 
+    <record id="view_carbon_track_reporte_cae_form" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.cae.form</field>
+        <field name="model">carbon.track.reporte.cae</field>
+        <field name="arch" type="xml">
+            <form string="Informe Oficial CAE" edit="0" delete="0" create="0">
+                <header>
+                    <button name="action_imprimir_pdf" 
+                            string="Generar PDF Oficial" 
+                            type="object" 
+                            class="oe_highlight" 
+                            icon="fa-file-pdf-o"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información del Registro">
+                            <field name="cae_id" string="Certificado Origen"/>
+                            <field name="fecha_generacion" string="Fecha de Cierre"/>
+                            <field name="validador_id" string="Auditor / Validador"/>
+                        </group>
+                        <group string="Datos Consolidados (MITECO)">
+                            <field name="consumo_ahorrado" string="Ahorro Total (kWh)" class="fw-bold"/>
+                            <field name="co2_evitado" string="CO2 Evitado (kg)" class="fw-bold text-success"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_cae_list" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.cae.list</field>
+        <field name="model">carbon.track.reporte.cae</field>
+        <field name="arch" type="xml">
+            <list string="Informes Oficiales" create="0">
+                <field name="name"/>
+                <field name="fecha_generacion"/>
+                <field name="validador_id" widget="many2one_avatar_user"/>
+                <field name="consumo_ahorrado" sum="Total Ahorro"/>
+                <field name="co2_evitado" sum="Total CO2"/>
+                <button name="action_imprimir_pdf" string="Descargar PDF" type="object" icon="fa-file-pdf-o"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_reporte_cae" model="ir.actions.act_window">
+        <field name="name">Informes Oficiales CAE</field>
+        <field name="res_model">carbon.track.reporte.cae</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No hay informes generados.
+            </p>
+            <p>
+                Los informes oficiales se generarán automáticamente aquí cuando un Certificado CAE sea validado.
+            </p>
+        </field>
+    </record>
+
     <!-- ==================== MENÚS INFORMES ==================== -->
     <menuitem id="menu_carbon_track_reports"
               name="Informes"
@@ -128,5 +191,11 @@
               parent="menu_carbon_track_reports"
               action="action_carbon_track_reporte"
               sequence="10"/>
+
+    <menuitem id="menu_carbon_track_reporte_cae" 
+              name="Informes Oficiales CAE" 
+              parent="menu_carbon_track_reports" 
+              action="action_carbon_track_reporte_cae" 
+              sequence="30"/>
 
 </odoo>
