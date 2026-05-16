@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== ALCANCES ==================== -->
+    <record id="view_carbon_track_alcance_kanban" model="ir.ui.view">
+        <field name="name">carbon.track.alcance.kanban</field>
+        <field name="model">carbon.track.alcance</field>
+        <field name="arch" type="xml">
+            <kanban create="false" can_order="false">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="descripcion"/>
+                <field name="imagen"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click d-flex flex-column p-3 border-start border-4 border-info shadow-sm">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <field name="imagen" widget="image" options="{'preview_image': 'imagen', 'size': [60, 60]}"/>
+                                </div>
+                                <div class="fw-bold fs-4">
+                                    <field name="name"/>
+                                </div>
+                            </div>
+                            <div class="text-muted text-truncate" style="max-height: 50px;">
+                                <field name="descripcion"/>
+                            </div>
+                            <div class="mt-auto pt-2 border-top text-end">
+                                <span class="badge rounded-pill bg-info text-dark">Ver detalles</span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_alcance_form" model="ir.ui.view">
+        <field name="name">carbon.track.alcance.form</field>
+        <field name="model">carbon.track.alcance</field>
+        <field name="arch" type="xml">
+            <form string="Ficha de Alcance">
+                <sheet>
+                    <field name="imagen" widget="image" class="oe_avatar" options='{"preview_image": "imagen"}'/>
+                    <div class="oe_title">
+                        <label for="name" string="Tipo de Alcance"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Información Didáctica">
+                            <field name="descripcion" placeholder="Explica aquí qué incluye este alcance..."/>
+                        </group>
+                        <group string="Recursos de Apoyo">
+                            <label for="enlace_guia"/>
+                            <div class="o_row">
+                                <field name="enlace_guia" widget="url" placeholder="https://www.miteco.gob.es/..."/>
+                            </div>
+                            <field name="documento_apoyo" filename="documento_nombre"/>
+                            <field name="documento_nombre" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-warning" role="alert" style="margin-top: 20px;" invisible="not enlace_guia">
+                        <i class="fa fa-external-link"/>
+                        <strong>Nota para el usuario:</strong> Para una comprensión profunda, consulte la documentación oficial en el enlace superior.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_alcance" model="ir.actions.act_window">
+        <field name="name">Alcances</field>
+        <field name="res_model">carbon.track.alcance</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- ==================== PERIODOS ==================== -->
+    <record id="view_carbon_track_periodo_list" model="ir.ui.view">
+        <field name="name">carbon.track.periodo.list</field>
+        <field name="model">carbon.track.periodo</field>
+        <field name="arch" type="xml">
+            <list string="Periodos">
+                <field name="name"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="presupuesto_co2e"/>
+                <field name="total_co2e_consumido"/>
+                <field name="porcentaje_consumido" widget="progressbar"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_periodo_form" model="ir.ui.view">
+        <field name="name">carbon.track.periodo.form</field>
+        <field name="model">carbon.track.periodo</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_email"
+                            string="Enviar Informe por Email"
+                            type="object"
+                            class="oe_highlight"
+                            icon="fa-envelope"/>
+                    <button name="action_abrir"
+                            string="Abrir Periodo"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="estado != 'borrador'"/>
+                    <button name="action_cerrar"
+                            string="Cerrar Periodo"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="estado != 'abierto'"/>
+                    <button name="action_borrador"
+                            string="Volver a Borrador"
+                            type="object"
+                            invisible="estado == 'borrador'"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,abierto,cerrado"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="¡NET ZERO!" bg_color="text-bg-success" invisible="not es_net_zero"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Ej. Mayo 2026"/></h1>
+                    </div>
+                    <group>
+                        <group string="Fechas del Periodo">
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                        </group>
+                        <group string="Balance Ecológico">
+                            <field name="total_co2e_consumido" decoration-danger="1"/>
+                            <field name="total_co2e_compensado" decoration-success="1"/>
+                            <field name="huella_neta" class="fw-bold fs-5"/>
+                        </group>
+                        <group string="Control de Presupuesto">
+                            <field name="presupuesto_co2e"/>
+                            <field name="porcentaje_consumido" widget="progressbar"/>
+                            <field name="alerta_presupuesto_enviada"/>
+                            <field name="es_net_zero" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Proyectos de Compensación">
+                            <field name="compensacion_ids">
+                                <list editable="bottom">
+                                    <field name="fecha"/>
+                                    <field name="name"/>
+                                    <field name="tipo"/>
+                                    <field name="co2e_compensado" sum="Total"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_periodo" model="ir.actions.act_window">
+        <field name="name">Periodos</field>
+        <field name="res_model">carbon.track.periodo</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== FACTORES DE EMISIÓN ==================== -->
+    <record id="view_carbon_track_emision_form" model="ir.ui.view">
+        <field name="name">carbon.track.emision.form</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <form string="Factor de Emisión">
+                <sheet>
+                    <widget name="web_ribbon" title="Oficial" bg_color="bg-info" invisible="not es_oficial"/>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre del Factor"/>
+                        <h1>
+                            <field name="name" placeholder="Ej: Electricidad - Mix 2024"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Origen y Clasificación">
+                            <field name="fuente_origen"/>
+                            <field name="region"/>
+                            <field name="anio"/>
+                            <field name="categoria"/>
+                            <field name="fuente_externa_id" options="{'no_create': True}"/>
+                        </group>
+                        <group string="Datos de Cálculo">
+                            <label for="valor"/>
+                            <div class="o_row">
+                                <field name="valor" class="oe_inline fw-bold"/>
+                                <field name="unidad" class="oe_inline" placeholder="Unidad"/>
+                            </div>
+                            <field name="es_oficial" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Validez y Bibliografía" name="validez">
+                            <group>
+                                <group string="Periodo de Validez">
+                                    <field name="valido_desde"/>
+                                    <field name="valido_hasta"/>
+                                </group>
+                                <group string="Referencias">
+                                    <field name="fuentes" placeholder="Enlaces o referencias bibliográficas..."/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_emision_list" model="ir.ui.view">
+        <field name="name">carbon.track.emision.list</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <list string="Factores de Emisión" decoration-info="es_oficial == True">
+                <field name="name"/>
+                <field name="categoria" optional="show"/>
+                <field name="region"/>
+                <field name="anio"/>
+                <field name="valor"/>
+                <field name="unidad"/>
+                <field name="fuente_origen" optional="hide"/>
+                <field name="es_oficial" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_emision_search" model="ir.ui.view">
+        <field name="name">carbon.track.emision.search</field>
+        <field name="model">carbon.track.emision</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="categoria"/>
+                <field name="region"/>
+                <field name="fuente_origen"/>
+                <filter string="Oficiales" name="official" domain="[('es_oficial', '=', True)]"/>
+                <filter string="Manuales" name="manual" domain="[('es_oficial', '=', False)]"/>
+                <separator/>
+                <filter string="Vigentes" name="current" domain="[('valido_hasta', '>=', context_today())]"/>
+                <group expand="0" string="Agrupar por...">
+                    <filter string="Categoría" name="group_categoria" context="{'group_by':'categoria'}"/>
+                    <filter string="Región" name="group_region" context="{'group_by':'region'}"/>
+                    <filter string="Año" name="group_anio" context="{'group_by':'anio'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_emision" model="ir.actions.act_window">
+        <field name="name">Factores de Emisión</field>
+        <field name="res_model">carbon.track.emision</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== FUENTES EXTERNAS ==================== -->
+    <record id="view_carbon_track_fuente_externa_form" model="ir.ui.view">
+        <field name="name">carbon.track.fuente.externa.form</field>
+        <field name="model">carbon.track.fuente.externa</field>
+        <field name="arch" type="xml">
+            <form string="Fuente de Datos">
+                <header>
+                    <button name="action_test_connection"
+                            type="object"
+                            string="Probar Conexión"
+                            icon="fa-plug"
+                            invisible="not api_key"/>
+                    <button name="action_sync_factors"
+                            type="object"
+                            string="Sincronizar Catálogo"
+                            class="oe_highlight"
+                            icon="fa-cloud-download"
+                            invisible="not anio_filtro or not pais_filtro or cantidad_limite &lt;= 0"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Ej: Climatiq API"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Credenciales" name="api_config">
+                            <field name="api_key" password="True"/>
+                        </group>
+                        <group string="Parámetros de Búsqueda" name="api_filtros">
+                            <field name="anio_filtro" placeholder="Ej. 2024"/>
+                            <field name="pais_filtro" placeholder="Ej. ES"/>
+                            <field name="cantidad_limite"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-warning" role="alert" invisible="anio_filtro and pais_filtro and cantidad_limite &gt; 0">
+                        <i class="fa fa-exclamation-triangle"/>
+                        Debes rellenar el Año, el País y la Cantidad para que aparezca el botón de Sincronizar.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_fuente_externa_list" model="ir.ui.view">
+        <field name="name">carbon.track.fuente.externa.list</field>
+        <field name="model">carbon.track.fuente.externa</field>
+        <field name="arch" type="xml">
+            <list string="Fuentes de Datos Externas">
+                <field name="name"/>
+                <field name="anio_filtro" string="Año"/>
+                <field name="pais_filtro" string="País"/>
+                <field name="cantidad_limite" string="Límite"/>
+                <field name="ultima_sincronizacion" widget="datetime"/>
+                <field name="estado" widget="badge"
+                       decoration-success="estado == 'conectado'"
+                       decoration-danger="estado == 'error'"
+                       decoration-info="estado == 'borrador'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_fuente_externa" model="ir.actions.act_window">
+        <field name="name">Fuentes Externas API</field>
+        <field name="res_model">carbon.track.fuente.externa</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== MENÚS CONFIGURACIÓN ==================== -->
+    <menuitem id="menu_carbon_track_root"
+              name="Carbon Track"
+              web_icon="modulo_carbon_track,static/description/icon.png"/>
+
+    <menuitem id="menu_carbon_track_config"
+              name="Configuración"
+              parent="menu_carbon_track_root"
+              sequence="100"/>
+
+    <menuitem id="menu_carbon_track_alcance_config"
+              name="Alcances"
+              parent="menu_carbon_track_config"
+              action="action_carbon_track_alcance"
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_periodo_config"
+              name="Periodos"
+              parent="menu_carbon_track_config"
+              action="action_carbon_track_periodo"
+              sequence="20"/>
+
+    <menuitem id="menu_carbon_track_emision_config"
+              name="Factores de Emisión"
+              parent="menu_carbon_track_config"
+              action="action_carbon_track_emision"
+              sequence="30"/>
+
+    <menuitem id="menu_carbon_track_fuente_externa_config"
+              name="Fuentes Externas (API)"
+              parent="menu_carbon_track_config"
+              action="action_carbon_track_fuente_externa"
+              sequence="40"/>
+
+</odoo>

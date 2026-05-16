@@ -270,6 +270,39 @@
         </field>
     </record>
 
+    <record id="view_carbon_track_actividad_list" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.list</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <list string="Actividades de Emisión">
+                <field name="codigo" string="Cód."/>
+                <field name="name" string="Actividad"/>
+                <field name="alcance_id" optional="show"/>
+                <field name="factor_emision_id" optional="show"/>
+                <field name="unidad" string="Ud. Medida" optional="show"/>
+            
+            <field name="registro_count" string="Registros"/>
+            <field name="total_co2e_acumulado" string="Total CO2e (kg)" decoration-bf="1"/>
+            
+            <field name="activo" widget="boolean_toggle" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_actividad_search" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.search</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Actividad o Código" filter_domain="['|', ('name', 'ilike', self), ('codigo', 'ilike', self)]"/>
+                <field name="alcance_id"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Alcance" name="group_by_alcance" context="{'group_by': 'alcance_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     
     <!-- el formulario de los alcances-->
     <record id="view_carbon_track_alcance_form" model="ir.ui.view">
@@ -451,6 +484,40 @@
         </field>    
     </record>
 
+    <record id="view_carbon_track_compensacion_list" model="ir.ui.view">
+        <field name="name">carbon.track.compensacion.list</field>
+        <field name="model">carbon.track.compensacion</field>
+        <field name="arch" type="xml">
+            <list string="Compensaciones de Carbono">
+                <field name="codigo" string="Referencia"/>
+                <field name="fecha"/>
+                <field name="name" string="Proyecto"/>
+                <field name="periodo_id"/>
+                <field name="tipo"/>
+                <field name="co2e_compensado" string="CO2e Compensado (kg)" decoration-bf="1" sum="Total Compensado"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_compensacion_search" model="ir.ui.view">
+        <field name="name">carbon.track.compensacion.search</field>
+        <field name="model">carbon.track.compensacion</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Proyecto o Referencia" filter_domain="['|', ('name', 'ilike', self), ('codigo', 'ilike', self)]"/>
+                <field name="periodo_id"/>
+                <field name="tipo"/>
+                <group expand="0" string="Agrupar por">
+                <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                <filter string="Tipo de Compensación" name="group_by_tipo" context="{'group_by': 'tipo'}"/>
+                <filter string="Fecha" name="group_by_fecha" context="{'group_by': 'fecha'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
     <!--Formulario de la fuente externa-->
     <record id="view_carbon_track_fuente_externa_form" model="ir.ui.view">
         <field name="name">carbon.track.fuente.externa.form</field>
@@ -492,6 +559,24 @@
                     </div>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_fuente_externa_list" model="ir.ui.view">
+        <field name="name">carbon.track.fuente.externa.list</field>
+        <field name="model">carbon.track.fuente.externa</field>
+        <field name="arch" type="xml">
+            <list string="Fuentes de Datos Externas">
+                <field name="name"/>
+                <field name="anio_filtro" string="Año"/>
+                <field name="pais_filtro" string="País"/>
+                <field name="cantidad_limite" string="Límite"/>
+                <field name="ultima_sincronizacion" widget="datetime"/>
+                <field name="estado" widget="badge" 
+                        decoration-success="estado == 'conectado'" 
+                        decoration-danger="estado == 'error'" 
+                        decoration-info="estado == 'borrador'"/>
+            </list>
         </field>
     </record>
 
@@ -629,6 +714,38 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_list" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.list</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+            <list string="Informes de Emisiones" create="true" edit="false">
+                <field name="name" string="Informe / Periodo"/>
+                <field name="fecha_de_generacion" string="Fecha" widget="date" optional="show"/>
+            
+                <field name="total_alcance1" string="Alcance 1 (Directas)" sum="Total A1"/>
+                <field name="total_alcance2" string="Alcance 2 (Energía)" sum="Total A2"/>
+                <field name="total_alcance3" string="Alcance 3 (Otras)" sum="Total A3"/>
+            
+                <field name="periodo_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_search" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.search</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+        <search>
+                <field name="name"/>
+                <field name="periodo_id"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                    <filter string="Mes de Generación" name="group_by_fecha" context="{'group_by': 'fecha_de_generacion:month'}"/>
+                </group>
+            </search>
         </field>
     </record>
 

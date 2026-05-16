@@ -16,7 +16,9 @@
     'data': [
         'security/carbon_track_security.xml',
         'security/ir.model.access.csv',
-        'views/carbon_track_menus.xml',
+        'views/configuracion_views.xml',   
+        'views/operaciones_views.xml',
+        'views/informes_views.xml',
         'views/hr_expense_views.xml',
         'views/cae.xml',
         'views/account_views.xml',

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== REGISTROS DE CONSUMO ==================== -->
+    <record id="view_carbon_track_registro_list" model="ir.ui.view">
+        <field name="name">carbon.track.registro.list</field>
+        <field name="model">carbon.track.registro</field>
+        <field name="arch" type="xml">
+            <list string="Registros de Consumo" decoration-info="valor_co2e &gt; 0">
+                <field name="fecha"/>
+                <field name="actividad_id"/>
+                <field name="periodo_id"/>
+                <field name="cantidad"/>
+                <field name="unidad"/>
+                <field name="valor_co2e" sum="Total CO2e Generado"/>
+                <field name="nivel_impacto"
+                       widget="badge"
+                       decoration-success="nivel_impacto == 'bajo'"
+                       decoration-warning="nivel_impacto == 'medio'"
+                       decoration-danger="nivel_impacto == 'alto'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_registro_graph" model="ir.ui.view">
+        <field name="name">carbon.track.registro.graph</field>
+        <field name="model">carbon.track.registro</field>
+        <field name="arch" type="xml">
+            <graph string="Análisis de Emisiones" type="bar" sample="1">
+                <field name="actividad_id"/>
+                <field name="valor_co2e" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_registro_form" model="ir.ui.view">
+        <field name="name">carbon.track.registro.form</field>
+        <field name="model">carbon.track.registro</field>
+        <field name="arch" type="xml">
+            <form string="Registro de Emisión">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_caes" type="object" class="oe_stat_button" icon="fa-bolt">
+                            <div class="o_stat_info">
+                                <field name="cae_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Certificados CAE</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información Principal">
+                            <field name="concepto"/>
+                            <field name="periodo_id" options="{'no_create': True}"/>
+                            <field name="actividad_id" options="{'no_create': True}"/>
+                            <field name="fecha"/>
+                        </group>
+                        <group string="Cálculo de Consumo">
+                            <label for="cantidad" string="Consumo Reportado"/>
+                            <div class="o_row" name="consumo_div">
+                                    <field name="cantidad" class="oe_inline"/>
+                                    <field name="unidad" class="oe_inline fw-bold" readonly="1" force_save="1" nolabel="1"/>
+                            </div>
+
+                            <field name="valor_co2e" 
+                                   string="Total CO2e (kg)"
+                                   class="fw-bold" 
+                                   decoration-danger="valor_co2e > 100" 
+                                   readonly="1" 
+                                   force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notas y Auditoría">
+                            <field name="notas" placeholder="Añade aquí detalles sobre la factura o el ticket..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_registro" model="ir.actions.act_window">
+        <field name="name">Registros de Consumo</field>
+        <field name="res_model">carbon.track.registro</field>
+        <field name="view_mode">list,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primer registro de consumo para empezar a medir la huella.
+            </p>
+        </field>
+    </record>
+
+    <!-- ==================== ACTIVIDADES ==================== -->
+    <record id="view_carbon_track_actividad_form" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.form</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <form string="Actividad Emisora">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_registros"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-leaf">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="registro_count"/> Usos
+                                </span>
+                                <span class="o_stat_text text-danger fw-bold">
+                                    <field name="total_co2e_acumulado" widget="float" digits="[16,2]"/> kg CO2
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archivada" bg_color="bg-danger" invisible="activo"/>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre de la Actividad"/>
+                        <h1>
+                            <field name="name" placeholder="Ej. Consumo Eléctrico Oficinas"/>
+                        </h1>
+                        <h2>
+                            <field name="codigo" class="text-muted"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Clasificación Normativa" name="clasificacion">
+                            <field name="alcance_id" options="{'no_create': True}" widget="selection_badge"/>
+                        </group>
+                        <group string="Parámetros de Cálculo" name="calculo">
+                            <field name="factor_emision_id" options="{'no_create': True, 'no_open': False}"/>
+                            <label for="unidad" string="Unidad de Medida"/>
+                            <div class="o_row">
+                                <field name="unidad" readonly="1" force_save="1" class="oe_inline fw-bold text-primary"/>
+                            </div>
+                            <field name="activo" widget="boolean_toggle" string="En uso"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción / Notas" name="notas">
+                            <field name="description" placeholder="Detalla aquí la justificación de esta actividad o metodología..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_actividad_list" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.list</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <list string="Actividades de Emisión">
+                <field name="codigo" string="Cód."/>
+                <field name="name" string="Actividad"/>
+                <field name="alcance_id" optional="show"/>
+                <field name="factor_emision_id" optional="show"/>
+                <field name="unidad" string="Ud. Medida" optional="show"/>
+                <field name="registro_count" string="Registros"/>
+                <field name="total_co2e_acumulado" string="Total CO2e (kg)" decoration-bf="1"/>
+                <field name="activo" widget="boolean_toggle" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_actividad_search" model="ir.ui.view">
+        <field name="name">carbon.track.actividad.search</field>
+        <field name="model">carbon.track.actividad</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Actividad o Código" filter_domain="['|', ('name', 'ilike', self), ('codigo', 'ilike', self)]"/>
+                <field name="alcance_id"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Alcance" name="group_by_alcance" context="{'group_by': 'alcance_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_actividad" model="ir.actions.act_window">
+        <field name="name">Actividades</field>
+        <field name="res_model">carbon.track.actividad</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== COMPENSACIONES ==================== -->
+    <record id="view_carbon_track_compensacion_form" model="ir.ui.view">
+        <field name="name">carbon.track.compensacion.form</field>
+        <field name="model">carbon.track.compensacion</field>
+        <field name="arch" type="xml">
+            <form string="Proyecto de Compensación">
+                <sheet>
+                    <div class="oe_title">
+                        <span class="text-muted" invisible="codigo == 'Nuevo'">Referencia: </span>
+                        <h1>
+                            <field name="codigo" class="text-primary"/>
+                        </h1>
+                        <label for="name" string="Nombre del Proyecto"/>
+                        <h2>
+                            <field name="name" placeholder="Ej. Reforestación Sierra de Gredos"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Detalles de la Acción" name="main_details">
+                            <field name="tipo" widget="selection_badge" options="{'horizontal': true}"/>
+                            <field name="fecha"/>
+                            <field name="periodo_id" options="{'no_create': True, 'no_open': False}"/>
+                        </group>
+                        <group string="Impacto Positivo" name="impact">
+                            <label for="co2e_compensado"/>
+                            <div class="o_row">
+                                <field name="co2e_compensado" class="oe_inline fw-bold" style="font-size: 1.2em; color: #28a745;"/>
+                                <span class="fw-bold">kg CO2e</span>
+                            </div>
+                            <div class="alert alert-info mt-2" role="alert" style="padding: 5px 10px;">
+                                <i class="fa fa-info-circle"/> Este valor se restará de la huella neta del periodo.
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documentación y Certificados" name="docs">
+                            <group>
+                                <field name="notas" widget="html" placeholder="Pega aquí el enlace al certificado oficial o detalles del proyecto..."/>
+                            </group>
+                        </page>
+                        <page string="Auditoría" name="audit">
+                            <group>
+                                <field name="create_uid" readonly="1" string="Registrado por"/>
+                                <field name="create_date" readonly="1" string="Fecha de registro"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_compensacion_list" model="ir.ui.view">
+        <field name="name">carbon.track.compensacion.list</field>
+        <field name="model">carbon.track.compensacion</field>
+        <field name="arch" type="xml">
+            <list string="Compensaciones de Carbono">
+                <field name="codigo" string="Referencia"/>
+                <field name="fecha"/>
+                <field name="name" string="Proyecto"/>
+                <field name="periodo_id"/>
+                <field name="tipo"/>
+                <field name="co2e_compensado" string="CO2e Compensado (kg)" decoration-bf="1" sum="Total Compensado"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_compensacion_search" model="ir.ui.view">
+        <field name="name">carbon.track.compensacion.search</field>
+        <field name="model">carbon.track.compensacion</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Proyecto o Referencia" filter_domain="['|', ('name', 'ilike', self), ('codigo', 'ilike', self)]"/>
+                <field name="periodo_id"/>
+                <field name="tipo"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                    <filter string="Tipo de Compensación" name="group_by_tipo" context="{'group_by': 'tipo'}"/>
+                    <filter string="Fecha" name="group_by_fecha" context="{'group_by': 'fecha'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_compensacion" model="ir.actions.act_window">
+        <field name="name">Compensaciones</field>
+        <field name="res_model">carbon.track.compensacion</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================== MENÚS OPERACIONES ==================== -->
+    <menuitem id="menu_carbon_track_operations"
+              name="Operaciones"
+              parent="menu_carbon_track_root"
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_registro"
+              name="Registros de Consumo"
+              parent="menu_carbon_track_operations"
+              action="action_carbon_track_registro"
+              sequence="10"/>
+
+    <menuitem id="menu_carbon_track_actividad"
+              name="Actividades"
+              parent="menu_carbon_track_operations"
+              action="action_carbon_track_actividad"
+              sequence="20"/>
+
+    <menuitem id="menu_carbon_track_compensacion"
+              name="Compensaciones"
+              parent="menu_carbon_track_operations"
+              action="action_carbon_track_compensacion"
+              sequence="30"/>
+
+</odoo>

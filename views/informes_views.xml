@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== PLANTILLA DE CORREO ==================== -->
+    <record id="email_template_periodo" model="mail.template">
+        <field name="name">Envío de Informe de Sostenibilidad</field>
+        <field name="model_id" ref="modulo_carbon_track.model_carbon_track_periodo"/>
+        <field name="subject">Informe de Huella de Carbono: {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px; font-family: Arial, Helvetica, sans-serif;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hola,<br/><br/>
+                    A continuación, se detalla el resumen del <strong>Informe de Huella de Carbono</strong> correspondiente al periodo <strong><t t-out="object.name"/></strong>.
+                    <br/><br/>
+                    <strong>Resumen del Periodo:</strong>
+                    <ul>
+                        <li>Presupuesto Máximo: <t t-out="object.presupuesto_co2e"/> kg</li>
+                        <li>Total Consumido: <t t-out="object.total_co2e_consumido"/> kg</li>
+                        <li>Total Compensado: <t t-out="object.total_co2e_compensado"/> kg</li>
+                        <li>Huella Neta Final: <strong><t t-out="object.huella_neta"/> kg</strong></li>
+                    </ul>
+                    <br/>
+                    <t t-if="object.es_net_zero">
+                        <span style="color: #28a745; font-weight: bold; font-size: 15px;">
+                            Hemos alcanzado el objetivo Net Zero en este periodo.
+                        </span><br/><br/>
+                    </t>
+                    Gracias,<br/>
+                    Departamento de Sostenibilidad
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <!-- ==================== INFORMES / REPORTES ==================== -->
+    <record id="view_carbon_track_reporte_form" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.form</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+            <form string="Informe de Emisiones">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre del Informe"/>
+                        <h1>
+                            <field name="name" placeholder="Selecciona un periodo para generar..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Datos del Informe" name="datos_principales">
+                            <field name="periodo_id" options="{'no_create': True, 'no_open': False}"/>
+                            <field name="fecha_de_generacion" readonly="1"/>
+                        </group>
+                        <group string="Desglose por Alcances" name="totales_alcance">
+                            <label for="total_alcance1" string="Alcance 1 (Directas)"/>
+                            <div class="o_row">
+                                <field name="total_alcance1" readonly="1" class="oe_inline fw-bold text-success"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                            <label for="total_alcance2" string="Alcance 2 (Indirectas Energía)"/>
+                            <div class="o_row">
+                                <field name="total_alcance2" readonly="1" class="oe_inline fw-bold text-warning"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                            <label for="total_alcance3" string="Alcance 3 (Otras Indirectas)"/>
+                            <div class="o_row">
+                                <field name="total_alcance3" readonly="1" class="oe_inline fw-bold text-info"/>
+                                <span class="text-muted">kg CO2e</span>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_list" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.list</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+            <list string="Informes de Emisiones" create="true" edit="false">
+                <field name="name" string="Informe / Periodo"/>
+                <field name="fecha_de_generacion" string="Fecha" widget="date" optional="show"/>
+                <field name="total_alcance1" string="Alcance 1 (Directas)" sum="Total A1"/>
+                <field name="total_alcance2" string="Alcance 2 (Energía)" sum="Total A2"/>
+                <field name="total_alcance3" string="Alcance 3 (Otras)" sum="Total A3"/>
+                <field name="periodo_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carbon_track_reporte_search" model="ir.ui.view">
+        <field name="name">carbon.track.reporte.search</field>
+        <field name="model">carbon.track.reporte</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="periodo_id"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Periodo" name="group_by_periodo" context="{'group_by': 'periodo_id'}"/>
+                    <filter string="Mes de Generación" name="group_by_fecha" context="{'group_by': 'fecha_de_generacion:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_carbon_track_reporte" model="ir.actions.act_window">
+        <field name="name">Informes de Huella de Carbono</field>
+        <field name="res_model">carbon.track.reporte</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Genera tu primer informe de emisiones.
+            </p>
+            <p>
+                Selecciona un periodo fiscal para consolidar todos los registros generados y dividirlos por su alcance normativo.
+            </p>
+        </field>
+    </record>
+
+    <!-- ==================== MENÚS INFORMES ==================== -->
+    <menuitem id="menu_carbon_track_reports"
+              name="Informes"
+              parent="menu_carbon_track_root"
+              sequence="20"/>
+
+    <menuitem id="menu_carbon_track_reporte_list"
+              name="Resumen de Emisiones"
+              parent="menu_carbon_track_reports"
+              action="action_carbon_track_reporte"
+              sequence="10"/>
+
+</odoo>
